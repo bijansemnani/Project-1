@@ -5,19 +5,22 @@ $(document).ready(function () {
 function ajaxCall(query) {
   $.ajax({
         url: 'https://api.spotify.com/v1/search',
-        headers:{"Authorization": "Bearer BQDTmUZ1UXGIND2hVrPnc7H_9oWUGCBQbJsI1RWk9e1JP6v3JsbMh7abN1iDvacqx1O5yIyXjn-iJiWV9fKCtEe8SW8CUEoI_tpQDEkLAnkbsmhT_DiFFwymYwfk4pDDlr7jiQLaIA"},
+        headers:{"Authorization": "Bearer BQCK6lg3oYt05LDEaCFs-9BdSmTZ5rUvvwFz7P-HoeiR5tB4BX9dHeJsm2y65ZJ-wdINN79VpdBsOkO9RDU4EEvBgslJ7GtSPfQUQYIS3-59VEwNonyQjWsH8bpvpkzlAHGhmjbbxQ"},
         data: {
             q: query,
-            type: 'album'
+            type: 'artist'
         },
         success: function (response) {
-            console.log(response);
+            var genreArray = response.artists.items[0].genres;
+            console.log(genreArray);
         }
     });
 }
-  $("add-artst").on("click", function (event) {
+  $("#add-artist").on("click", function (event) {
     event.preventDefault();
     query = $("#artist-input").val();
+    $("#artist-input").val("");
+    ajaxCall(query);
   });
 
 
