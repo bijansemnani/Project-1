@@ -14,6 +14,31 @@
     <script type="text/javascript" src="assets/javascript/food2fork.js"></script>
   </head>
   <body>
+    <form id="artist-form">
+      <label for="artist-input">Add Topic</label>
+      <input type="text" id="artist-input"><br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-artist" type="submit" value="Add">
+    </form>
+      <h3>Project-1</h3>
+      <div id="map"></div>
+      <script>
+        function initMap() {
+          var uluru = {lat: -25.363, lng: 131.044};
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: uluru
+          });
+          var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+          });
+        }
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap">
+      </script>
     <h3>Project-1</h3>
     <div id="map"></div>
     <script>
