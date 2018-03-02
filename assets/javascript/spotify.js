@@ -1,34 +1,41 @@
 $(document).ready(function () {
   var queryUrl = "https://api.spotify.com/v1/search";
+  var location = window.location.href;
   var query;
+  var access_token;
   var client_id = "1f5b4e7edfec42fca78e4fdda3824e09";
   var client_secret = "71a0b8c0a0054e53b1d2a18bba8ce8d2";
-  var redirect_uri = "https://bijansemnani.github.io/Project-1/index.html";
+  var redirect_uri = "https://bijansemnani.github.io/Project-1/";
   var authUrl = "https://accounts.spotify.com/authorize/?";
   authUrl += "client_id=" +client_id+"&response_type=code&"+"redirect_uri="+redirect_uri;
 
-  $.ajax({
-    url:authUrl,
-    method: "GET",
-    success: function (response) {
-      var postUrl = "https://accounts.spotify.com/api/token/?";
-      postUrl+= "grant_type=authorization_code"+"&code="
-      +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
-      +"&client_secret="+client_secret;
-      $.ajax({
-        url: postUrl,
-        method: "POST",
-        success: function (response) {
-          console.log(reponse);
-        }
-      })
-    }
-  });
+  console.log(location.indexOf('?'));
+  if(location.indexOf('?') === -1){
+    $.ajax({
+          url:authUrl,
+          method: "GET",
+          success: function (response) {
+            var postUrl = "https://accounts.spotify.com/api/token/?";
+            postUrl+= "grant_type=authorization_code"+"&code="
+            +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
+            +"&client_secret="+client_secret;
+          }
+    });
+  } else{
+    $.ajax({
+          url: postUrl,
+          method: "POST",
+          success: function (response) {
+            console.log(response);
+            access_token = response.access_token;
+          }
+    });
+  }
 
   function ajaxCall(query) {
     $.ajax({
           url: 'https://api.spotify.com/v1/search',
-          headers:{"Authorization": "Bearer BQCK6lg3oYt05LDEaCFs-9BdSmTZ5rUvvwFz7P-HoeiR5tB4BX9dHeJsm2y65ZJ-wdINN79VpdBsOkO9RDU4EEvBgslJ7GtSPfQUQYIS3-59VEwNonyQjWsH8bpvpkzlAHGhmjbbxQ"},
+          headers:{"Authorization": "Bearer "+ access_token},
           data: {
               q: query,
               type: 'artist'
@@ -47,7 +54,7 @@ $(document).ready(function () {
     queryUrl += "/"+id+"/related-artists";
     $.ajax({
           url: queryUrl,
-          headers:{"Authorization": "Bearer BQCK6lg3oYt05LDEaCFs-9BdSmTZ5rUvvwFz7P-HoeiR5tB4BX9dHeJsm2y65ZJ-wdINN79VpdBsOkO9RDU4EEvBgslJ7GtSPfQUQYIS3-59VEwNonyQjWsH8bpvpkzlAHGhmjbbxQ"},
+          headers:{"Authorization": "Bearer "+ access_token},
           data:{
             id: id
           },
@@ -63,6 +70,5 @@ $(document).ready(function () {
     $("#artist-input").val("");
     ajaxCall(query);
   });
-
 
 });
