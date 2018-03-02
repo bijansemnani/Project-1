@@ -1,5 +1,6 @@
 $(document).ready(function () {
   var queryUrl = "https://api.spotify.com/v1/search";
+  var postUrl = "https://accounts.spotify.com/api/token/?";
   var location = window.location.href;
   var query;
   var access_token;
@@ -18,7 +19,6 @@ $(document).ready(function () {
           }
     });
   } else{
-    var postUrl = "https://accounts.spotify.com/api/token/?";
     postUrl+= "grant_type=authorization_code"+"&code="
     +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
     +"&client_secret="+client_secret;
