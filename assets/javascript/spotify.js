@@ -1,6 +1,6 @@
 $(document).ready(function () {
   var queryUrl = "https://api.spotify.com/v1/search";
-  var postUrl = "https://accounts.spotify.com/api/token/?";
+  var postUrl = "https://accounts.spotify.com/api/token/";
   var location = window.location.href;
   var code;
   var query;
@@ -15,8 +15,9 @@ $(document).ready(function () {
   if(location.indexOf('?') === -1){
     window.location = authUrl;
   } else{
-    postUrl+= "grant_type=authorization_code"+"&code="
-    +sessionStorage.getItem("code")+"&redirect_uri="+redirect_uri+"&client_id="+client_id
+
+    postUrl+= window.location.search+"&grant_type=authorization_code"+
+    +"&redirect_uri="+redirect_uri+"&client_id="+client_id
     +"&client_secret="+client_secret;
     $.ajax({
           url: postUrl,
