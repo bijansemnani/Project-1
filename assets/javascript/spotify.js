@@ -13,13 +13,7 @@ $(document).ready(function () {
 
   console.log(location.indexOf('?'));
   if(location.indexOf('?') === -1){
-    $.ajax({
-          url:authUrl,
-          method: "GET",
-          success: function (response) {
-            sessionStorage.setItem("code",response.code);
-          }
-    });
+    window.location = authUrl;
   } else{
     postUrl+= "grant_type=authorization_code"+"&code="
     +sessionStorage.getItem("code")+"&redirect_uri="+redirect_uri+"&client_id="+client_id
