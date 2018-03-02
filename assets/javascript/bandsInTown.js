@@ -1,5 +1,6 @@
 function searchBandsInTown(artist) {
-    var artist = "beck";
+    console.log(similarArtists);
+    var artist = similarArtists[0];
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     $.ajax({
         url: queryURL,
