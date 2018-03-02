@@ -14,6 +14,7 @@ $(document).ready(function () {
           success: function (response) {
               console.log(response);
               var artist = response.results[0].artistName;
+              searchBandsInTown(artist);
               similiarArtists(artist);
           }
       });
@@ -29,7 +30,11 @@ $(document).ready(function () {
           },
           dataType: 'JSONP',
           success: function (response) {
-            similarArtists = response.Similar.Results
+            similarArtists = response.Similar.Results;
+            for (var i = 0; i < similarArtists.length; i++) {
+              console.log(similarArtists[i].Name);
+              searchBandsInTown(similarArtists[i].Name);
+            }
           }
     });
   }

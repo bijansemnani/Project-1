@@ -1,13 +1,11 @@
 function searchBandsInTown(artist) {
-    console.log(similarArtists);
-    var artist = similarArtists[0];
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
         //console.log(response);
-    
+
         var results = response;
         for (var i = 0; i < results.length; i++) {
             //console.log(results[i]);
@@ -21,5 +19,3 @@ function searchBandsInTown(artist) {
 
     });
 }
-
-searchBandsInTown();
