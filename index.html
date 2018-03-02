@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
   <head>
     <meta charset="utf-8">
     <title>Project-1</title>
@@ -10,18 +9,19 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/spotify.js"></script>
+    <!-- <script type="text/javascript" src="assets/javascript/spotify.js"></script> -->
     <script type="text/javascript" src="assets/javascript/food2fork.js"></script>
     <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
   </head>
   <body>
+    <h3>Project-1</h3>
     <form id="artist-form">
       <label for="artist-input">Add Topic</label>
       <input type="text" id="artist-input"><br>
       <!-- Button triggers new movie to be added -->
       <input id="add-artist" type="submit" value="Add">
     </form>
-      <h3>Project-1</h3>
+      <div id="artist-div"></div>
       <div id="map"></div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap">
