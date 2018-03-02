@@ -29,7 +29,7 @@ $(document).ready(function () {
           },
           dataType: 'JSONP',
           success: function (response) {
-            console.log(response);
+            similarArtists = response.Similar.Results
           }
     });
   }
