@@ -12,76 +12,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascript/spotify.js"></script>
     <script type="text/javascript" src="assets/javascript/food2fork.js"></script>
+    <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
   </head>
   <body>
     <form id="artist-form">
       <label for="artist-input">Add Topic</label>
       <input type="text" id="artist-input"><br>
-
       <!-- Button triggers new movie to be added -->
       <input id="add-artist" type="submit" value="Add">
     </form>
       <h3>Project-1</h3>
       <div id="map"></div>
-      <script>
-        function initMap() {
-          var uluru = {lat: -25.363, lng: 131.044};
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru
-          });
-          var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-          });
-        }
-
-  var infoWindow;
-  function initMap() {
-    var myLatlng = {lat: 34.062480, lng: -118.445076};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: myLatlng
-    });
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      draggable: true,
-      title: 'Click to zoom'
-    });
-    map.addListener('center_changed', function() {
-      // 3 seconds after the center of the map has changed, pan back to the marker.
-      window.setTimeout(function() {
-      map.panTo(marker.getPosition());
-      }, 3000);
-    });
-    marker.addListener('click', function() {
-      map.setZoom(8);
-      map.setCenter(marker.getPosition());
-    });
-
-    infoWindow = new google.maps.InfoWindow;
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-        };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
-        infoWindow.open(map);
-        map.setCenter(pos);
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  }
-    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap">
     </script>
