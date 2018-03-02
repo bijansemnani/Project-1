@@ -16,7 +16,7 @@ $(document).ready(function () {
     window.location = authUrl;
   } else{
 
-    postUrl+= window.location.search+"&grant_type=authorization_code"+
+    postUrl+= window.location.search+"&grant_type=authorization_code"
     +"&redirect_uri="+redirect_uri+"&client_id="+client_id
     +"&client_secret="+client_secret;
     $.ajax({
