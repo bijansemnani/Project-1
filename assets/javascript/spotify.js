@@ -1,6 +1,29 @@
 $(document).ready(function () {
   var queryUrl = "https://api.spotify.com/v1/search";
   var query;
+  var client_id = "1f5b4e7edfec42fca78e4fdda3824e09";
+  var client_secret = "71a0b8c0a0054e53b1d2a18bba8ce8d2";
+  var redirect_uri = "https://bijansemnani.github.io/Project-1/index.html";
+  var authUrl = "https://accounts.spotify.com/authorize/?";
+  authUrl += "client_id=" +client_id+"&response_type=code&"+"redirect_uri="+redirect_uri;
+
+  $.ajax({
+    url:authUrl,
+    method: "GET",
+    success: function (response) {
+      var postUrl = "https://accounts.spotify.com/api/token/?";
+      postUrl+= "grant_type=authorization_code"+"&code="
+      +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
+      +"&client_secret="+client_secret;
+      $.ajax({
+        url: postUrl,
+        method: "POST",
+        success: function (response) {
+          console.log(reponse);
+        }
+      })
+    }
+  });
 
   function ajaxCall(query) {
     $.ajax({
