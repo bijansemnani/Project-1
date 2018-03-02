@@ -15,13 +15,13 @@ $(document).ready(function () {
           url:authUrl,
           method: "GET",
           success: function (response) {
-            var postUrl = "https://accounts.spotify.com/api/token/?";
-            postUrl+= "grant_type=authorization_code"+"&code="
-            +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
-            +"&client_secret="+client_secret;
           }
     });
   } else{
+    var postUrl = "https://accounts.spotify.com/api/token/?";
+    postUrl+= "grant_type=authorization_code"+"&code="
+    +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
+    +"&client_secret="+client_secret;
     $.ajax({
           url: postUrl,
           method: "POST",
