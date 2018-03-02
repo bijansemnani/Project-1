@@ -2,6 +2,7 @@ $(document).ready(function () {
   var queryUrl = "https://api.spotify.com/v1/search";
   var postUrl = "https://accounts.spotify.com/api/token/?";
   var location = window.location.href;
+  var code;
   var query;
   var access_token;
   var client_id = "1f5b4e7edfec42fca78e4fdda3824e09";
@@ -16,11 +17,12 @@ $(document).ready(function () {
           url:authUrl,
           method: "GET",
           success: function (response) {
+            sessionStorage.setItem("code",response.code);
           }
     });
   } else{
     postUrl+= "grant_type=authorization_code"+"&code="
-    +response.code+"&redirect_uri="+redirect_uri+"&client_id="+client_id
+    +sessionStorage.getItem("code")+"&redirect_uri="+redirect_uri+"&client_id="+client_id
     +"&client_secret="+client_secret;
     $.ajax({
           url: postUrl,
