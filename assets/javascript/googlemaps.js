@@ -1,63 +1,143 @@
 var map, infoWindow;
-//---------------------------------------------------------------------------------
+var markers = [];
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 12
+        zoom: 6,
+        styles: [/* INSERT STYLE HERE... COPY/PASTE FROM https://snazzymaps.com/style/142848/red-gray-black FOR EXAMPLE  */]
     });
-    infoWindow = new google.maps.InfoWindow;
-    // Try HTML5 geolocation.
+                        //-----------------------------------------
+                        var contentString = 
+                        '<div id="content">We found you!</div>';
+                        infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                        });
+                        //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
+            var marker = new google.maps.Marker({
+                position: {lat: position.coords.latitude, lng: position.coords.longitude},
+                map: map,
+                icon: 'https://maps.google.com/mapfiles/kml/paddle/ylw-stars-lv.png'
+            });
+                        //-----------------------------------------
+                        marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                        });
+                        //-----------------------------------------
             map.setCenter(pos);
-        }, function() {
+        }, 
+        function() {
             handleLocationError(true, infoWindow, map.getCenter());
         });
     } else {
         handleLocationError(false, infoWindow, map.getCenter());
     }
-                    //---------------------------------TESTING but it works pretty much------------------------------------------------
-                    
-                    function searchBandsInTown(artist) {
-                        // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
-                        var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-                        $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                        }).then(function(response) {
-                            //---------------------------------this specific part needs work vvv------------------------------------------------
-                            // Printing the entire object to console
-                            console.log(response);
-                            // Constructing HTML containing the artist information
-                            var artistName = $("<h1>").text(response.name);
-                            var artistURL = $("<a>").attr("href", response.url).append(artistName);
-                            var upcomingEvents = $("<h2>").text(response.upcoming_event_count + " upcoming events");
-                            var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
-                            // Empty the contents of the artist-div, append the new artist content
-                            $("#artist-div").empty();
-                            $("#artist-div").append(artistURL, upcomingEvents, goToArtist);
-                            });
-                            }
-                            // Event handler for user clicking the select-artist button
-                            $("#add-artist").on("click", function(event) {
-                                // Preventing the button from trying to submit the form
-                                event.preventDefault();
-                                // Storing the artist name
-                                var inputArtist = $("#artist-input").val().trim();
-                                // Running the searchBandsInTown function (passing in the artist as an argument)
-                                searchBandsInTown(inputArtist);
-                            });
-                            //---------------------------------this specific part needs work ^^^------------------------------------------------
-                    //---------------------------------TESTING but it works pretty much^^^------------------------------------------------
-}
-//---------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------
+            function searchBandsInTown(artist) {
+                var queryURL = "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response) {
+                    console.log(response);
+                    var artistName = $("<h1>").text(response.name);
+                    // var artistURL = $("<a>").attr("href", response.url).append(artistName);
+                    var artistImage = $("<img>").attr("src", response.thumb_url);
+                    var upcomingEvents = $("<h2>").text(response.upcoming_event_count + " upcoming events");
+                    console.log(response.upcoming_event_count);
+                    $("#artist-div").empty();
+                    $("#artist-div").append(artistName, artistImage);
+                    $("#upcoming-events-div").empty();
+                    $("#upcoming-events-div").append(upcomingEvents);
+                });
+            }
+//-----------------------------------------------------------------------------------------------------------------------------------
+            function searchEventsInTown(artist) {
+                var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response) {
+                    console.log(response);
+                    for (var i = 0; i < response.length; i++){
+                            var venueLatitudeString = (response[i].venue.latitude);
+                            var venueLongitudeString = (response[i].venue.longitude);
+                            var datetime = (response[i].datetime);
+                            var datetimeSplit = datetime.split("T");
+                        //------------------------------------------------------------------------------------------------------
+                        //BELOW ARE THE USEFUL VARIABLES
+                        var venueName = (response[i].venue.name); //EVENT VENUE NAME
+                        var venueCity = (response[i].venue.city); //EVENT CITY
+                        var venueState = (response[i].venue.region); //EVENT STATE OR REGION
+                        var venueCountry = (response[i].venue.country); //EVENT COUNTRY
+
+                        var eventDate = datetimeSplit[0]; //EVENT DATE
+                        var eventTime = datetimeSplit[1]; //EVENT TIME
+
+                        var venueLatitude = Number(venueLatitudeString); //EVENT LATITUDE
+                        var venueLongitude = Number(venueLongitudeString); //EVENT LONGITUDE
+
+                        var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
+                        var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
+                        //------------------------------------------------------------------------------------------------------
+                        console.log(i + " - " + "Venue: " + venueName 
+                                      + " - " + "City: "  + venueCity 
+                                      + " - " + "State/Region: "  + venueState 
+                                      + " - " + "Country: "  + venueCountry
+                                      + " - " + "Latitude: " + venueLatitude 
+                                      + " - " + "Longitude: " + venueLongitude 
+                                      + " - " + "When: " + eventDate 
+                                      + " - " + "Time: " + eventTime
+                                      + " - " + "Tickets: " + eventTicketStatus
+                                      + " - " + "Purchase tickets: " + eventTicket
+                                    );
+                        //------------------------------------------------------------------------------------------------------
+                        // console.log(typeof venueName); RETURNS STRING
+                        // console.log(typeof venueCity); RETURNS STRING
+                        // console.log(typeof eventDate); RETURNS STRING
+                        // console.log(typeof eventTime); RETURNS STRING
+                        // console.log(typeof venueLatitude); RETURNS NUMBER
+                        // console.log(typeof venueLongitude); RETURNS NUMBER
+                        //------------------------------------------------------------------------------------------------------
+                        var eventInfo = $("<p>").text("#" + (i + 1) + ":" 
+                        + " " + "Venue: " + venueName 
+                        + " - " + "City: " + venueCity 
+                        + " - " + "State/Region: "  + venueState 
+                        + " - " + "Country: "  + venueCountry
+                        + " - " + "When: " + eventDate 
+                        + " - " + "Time: " + eventTime
+                        + " - " + "Tickets: " + eventTicketStatus
+                        + " - " + "Purchase tickets: " + eventTicket
+                        );
+                        $("#upcoming-events-div").append(eventInfo);
+                        //------------------------------------------------------------------------------------------------------
+                        //BELOW ADDS A MARKER FOR EVERY EVENT LISTED FOR THE INPUT ARTIST
+                        var eventMarker = new google.maps.Marker({
+                        position: {lat: venueLatitude, lng: venueLongitude},
+                        map: map,
+                        icon: 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png'
+                        });
+                        markers.push(eventMarker);
+                        //------------------------------------------------------------------------------------------------------
+                    }
+                });
+            }
+//------------------------------------------------------------------------------------------------------
+    $("#add-artist").on("click", function(event) {
+        event.preventDefault();
+        deleteMarkers();
+        var inputArtist = $("#artist-input").val().trim();
+        searchBandsInTown(inputArtist);
+        searchEventsInTown(inputArtist);
+    });
+} //THIS IS WHERE initMap(); ENDS
+//-----------------------------------------------------------------------------------------------------------------------------------
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ?
@@ -65,4 +145,27 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
 }
-//---------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+    setMapOnAll(null);
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
+// Shows any markers currently in the array.
+function showMarkers() {
+    setMapOnAll(map);
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+}
+//-----------------------------------------------------------------------------------------------------------------------------------
