@@ -46,6 +46,7 @@ function initMap() {
                     console.log(response.upcoming_event_count);
                     $("#artist-div").empty();
                     $("#artist-div").append(artistName, artistImage);
+                    $("#upcoming-events-div").empty();
                     $("#upcoming-events-div").append(upcomingEvents);
                 });
             }
