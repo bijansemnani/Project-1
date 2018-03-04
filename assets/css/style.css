@@ -11,16 +11,16 @@ nav .brand-logo {
     margin-right: 40px;
 }
 
-.parallax-container {
+/* .parallax-container {
     height: 500px;
-}
+} */
 
 .row .col.l4 {
     height: 486px;
 }
 
 .parallax-container .parallax img {
-    display: inherit;
+    display: block;
 }
 
 .page-footer {
