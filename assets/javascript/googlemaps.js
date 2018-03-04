@@ -36,7 +36,7 @@ function initMap() {
                             // Printing the entire object to console
                             console.log(response);
                             // Constructing HTML containing the artist information
-                            var artistName = $("<h1>").text(response.name);
+                            var artistName = $("<h1>").text(artist);
                             var artistURL = $("<a>").attr("href", response.url).append(artistName);
                             var upcomingEvents = $("<h2>").text(response.upcoming_event_count + " upcoming events");
                             var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
