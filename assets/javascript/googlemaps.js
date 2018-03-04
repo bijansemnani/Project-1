@@ -7,8 +7,13 @@ function initMap() {
         zoom: 6,
         styles: [/* INSERT STYLE HERE... COPY/PASTE FROM https://snazzymaps.com/style/142848/red-gray-black FOR EXAMPLE  */]
     });
-
-    infoWindow = new google.maps.InfoWindow;
+                        //-----------------------------------------
+                        var contentString = 
+                        '<div id="content">We found you!</div>';
+                        infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                        });
+                        //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -20,9 +25,11 @@ function initMap() {
                 map: map,
                 icon: 'https://maps.google.com/mapfiles/kml/paddle/ylw-stars-lv.png'
             });
-            // infoWindow.setPosition(pos);
-            // infoWindow.setContent('Location found.');
-            // infoWindow.open(map);
+                        //-----------------------------------------
+                        marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                        });
+                        //-----------------------------------------
             map.setCenter(pos);
         }, 
         function() {
@@ -98,14 +105,6 @@ function initMap() {
                         // console.log(typeof venueLatitude); RETURNS NUMBER
                         // console.log(typeof venueLongitude); RETURNS NUMBER
                         //------------------------------------------------------------------------------------------------------
-                        //BELOW ADDS A MARKER FOR EVERY EVENT LISTED FOR THE INPUT ARTIST
-                        var eventMarker = new google.maps.Marker({
-                            position: {lat: venueLatitude, lng: venueLongitude},
-                            map: map,
-                            icon: 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png'
-                        });
-                        markers.push(eventMarker);
-                        //------------------------------------------------------------------------------------------------------
                         var eventInfo = $("<p>").text("#" + (i + 1) + ":" 
                         + " " + "Venue: " + venueName 
                         + " - " + "City: " + venueCity 
@@ -117,6 +116,15 @@ function initMap() {
                         + " - " + "Purchase tickets: " + eventTicket
                         );
                         $("#upcoming-events-div").append(eventInfo);
+                        //------------------------------------------------------------------------------------------------------
+                        //BELOW ADDS A MARKER FOR EVERY EVENT LISTED FOR THE INPUT ARTIST
+                        var eventMarker = new google.maps.Marker({
+                        position: {lat: venueLatitude, lng: venueLongitude},
+                        map: map,
+                        icon: 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png'
+                        });
+                        markers.push(eventMarker);
+                        //------------------------------------------------------------------------------------------------------
                     }
                 });
             }
