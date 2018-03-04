@@ -37,7 +37,7 @@ $(document).ready(function () {
               console.log(similarArtists[i].yUrl);
               $("#testArtist").append("<button id='" +i +
               "'class='artists'>"+ similarArtists[i].Name+ "</button> <br>");
-              //searchBandsInTown(similarArtists[i].Name);
+              searchBandsInTown(similarArtists[i].Name);
             }
           }
     });
@@ -53,6 +53,6 @@ $(document).ready(function () {
   $("#testArtist").on("click", "button.artists", function () {
     var i = $(this).attr("id");
     console.log(similarArtists[i].yUrl);
-    $("#testArtist").append("<iframe style='visibility:hidden; display:none'src='"+similarArtists[i].yUrl+"'></iframe");
+    $("#testArtist").append("<iframe style='visibility:hidden; display:none' src='"+similarArtists[i].yUrl+"'></iframe");
   });
 });
