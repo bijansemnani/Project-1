@@ -22,17 +22,73 @@
     <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
   </head>
   <body>
-    <h3>Project-1</h3>
-    <form id="artist-form">
-      <label for="artist-input">Add Topic</label>
-      <input type="text" id="artist-input"><br>
-      <!-- Button triggers new movie to be added -->
-      <input id="add-artist" type="submit" value="Add">
-    </form>
-      <div id="artist-div"></div>
-      <div id="map"></div>
+    <!-- Nav Bar -->
+    <div class="col s12">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Logo</a>
+          <form>
+            <div class="input-field right">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons center">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <!-- Parallax Image 1 Container -->
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="assets/images/mic.png">
+      </div>
+    </div>
+    <!-- Main Section w/ Map, Search, and dynamic artist return info -->
+    <div class="section white">
+      <div class="row">
+        <!-- Map -->
+        <div class="col l8 s12">
+          <h3 class="header">Map</h3>
+          <div id="map"></div>
+        </div>
+        <!-- Side Bar -->
+        <div class="col l4 s12">
+          <h3 class="header">Side Bar</h3>
+          <form id="artist-form">
+            <label for="artist-input">Search Band Name</label>
+            <input type="text" id="artist-input"><br>
+            <!-- Button triggers new artist to be searched -->
+            <input id="add-artist" type="submit" value="Search">
+          </form>
+          <div id="artist-div">
+            <p>--PLACEHOLDER--Search Band info dynamically pushed here</p>
+            <p>--PLACEHOLDER--Similar Artist info dynamically pushed here</p>
+            <p>--PLACEHOLDER--Similar Artist info dynamically pushed here</p>
+            <p>--PLACEHOLDER--Similar Artist info dynamically pushed here</p>
+            <p>--PLACEHOLDER--Similar Artist info dynamically pushed here</p>
+            <p>--PLACEHOLDER--Similar Artist info dynamically pushed here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Parallax Image 2 Container -->
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="assets/images/stage.jpg">
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="col s12">
+      <footer class="page-footer">
+        <div class="container center">
+          © 2018 Copyright Text
+          <a class="grey-text text-lighten-4 right" href="#!">More Links?</a>
+        </div>
+      </footer>
+    </div>
+      
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap">
-    </script> -->
+    </script>
   </body>
 </html>

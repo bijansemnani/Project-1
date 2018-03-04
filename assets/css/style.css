@@ -2,3 +2,27 @@
     height: 400px;
     width: 100%;
    }
+
+nav .brand-logo {
+    margin-left: 40px;
+}
+
+.nav-wrapper .input-field input {
+    margin-right: 40px;
+}
+
+.parallax-container {
+    height: 500px;
+}
+
+.row .col.l4 {
+    height: 486px;
+}
+
+.parallax-container .parallax img {
+    display: inherit;
+}
+
+.page-footer {
+    padding: 30px;
+}
