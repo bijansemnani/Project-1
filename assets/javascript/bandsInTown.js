@@ -26,22 +26,22 @@ function searchArtistInfo(artist) {
         method: "GET"
     }).then(function(response) {
         console.log(response);
-        var artistName = $("<h1>").text(response.name);
+        var artistName = response.name;
         console.log(artistName);
-        var artistURL = $("<a>").attr("href", response.url).append(artistName);
+        var artistURL = response.url;
         console.log(artistURL);
-        // var artistImage = ("<img>").attr("src", response.thumb_url);
-        // console.log(artistImage);
-        $("#artist-div").empty();
-        $("#artist-div").append(artistURL, artistImage);
+        var artistImage = response.thumb_url;
+        console.log(artistImage);
+        // $("#artist-div").empty();
+        // $("#artist-div").append(artistName, artistURL, artistImage);
     });
 }
 
 $("#add-artist").on("click", function(event) {
+    console.log("button clicked");
     event.preventDefault();
-    console.log("clicked");
     var inputArtist = $("#artist-input").val().trim();
-    searchArtistInfo(inputArtist);
+    searchArtistInfo(artist);
 });
 
 // $(document).on("ready")
