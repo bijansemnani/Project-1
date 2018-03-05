@@ -12,6 +12,8 @@ nav .brand-logo {
 }
 
 /* .parallax-container {
+    position: relative;
+    overflow: hidden;
     height: 500px;
 } */
 
