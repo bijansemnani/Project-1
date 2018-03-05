@@ -41,7 +41,6 @@ $("#add-artist").on("click", function(event) {
     console.log("button clicked");
     event.preventDefault();
     var inputArtist = $("#artist-input").val().trim();
-    searchArtistInfo(artist);
 });
 
 // $(document).on("ready")

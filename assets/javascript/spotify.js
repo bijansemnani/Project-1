@@ -44,6 +44,7 @@ $(document).ready(function () {
     query = $("#artist-input").val();
     $("#artist-input").val("");
     ajaxCall(query);
+    searchArtistInfo(query);
   });
 
 });
