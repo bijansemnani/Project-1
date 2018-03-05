@@ -39,7 +39,7 @@ function search(artist) {
   });
 }
 
-function searchEventsInTown(artist, isTrue) {
+function searchEventsInTown(artist, isTrue, index) {
    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
    var icon = 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png';
    if(isTrue){
@@ -78,7 +78,7 @@ function searchEventsInTown(artist, isTrue) {
          });
          markers.push(eventMarker);
          //------------------------------------------------------------------------------------------------------
-         var eventInfo = $("<p>").text("#" + (i + 1) + ":"
+         var eventInfo = $("<p class='"+index+"'>").text("#" + (i + 1) + ":"
          + " " + "Artist: " + artist
          + " " + "Venue: " + venueName
          + " - " + "City: " + venueCity
@@ -89,7 +89,9 @@ function searchEventsInTown(artist, isTrue) {
          + " - " + "Tickets: " + eventTicketStatus
          + " - " + "Purchase tickets: " + eventTicket
          );
+         eventInfo.append("<button id='"+index
+         +"' class='artists'>" + artist + "</button>");
          $("#upcoming-events-div").append(eventInfo);
        }
    });
-   }
+}

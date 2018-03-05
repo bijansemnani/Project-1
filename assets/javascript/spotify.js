@@ -1,7 +1,9 @@
 $(document).ready(function () {
+  $('.parallax').parallax();
   var queryUrl = "https://itunes.apple.com/search";
   var tasteDive = "https://tastedive.com/api/similar?k=301824-Project1-648PWR92&";
   var youTube;
+  var iframe;
 
   function ajaxCall(query) {
     $.ajax({
@@ -31,11 +33,11 @@ $(document).ready(function () {
           },
           dataType: 'JSONP',
           success: function (response) {
-            $("#testArtist").empty();
+            $("#upcoming-events-div").empty();
             similarArtists = response.Similar.Results;
             for (var i = 0; i < similarArtists.length; i++) {
               console.log(similarArtists[i].Name);
-              searchEventsInTown(similarArtists[i].Name, true);
+              searchEventsInTown(similarArtists[i].Name, true, i);
             }
           }
     });
@@ -50,9 +52,29 @@ $(document).ready(function () {
     searchEventsInTown(query, false);
   });
 
-  $("#testArtist").on("click", "button.artists", function () {
+  $("#upcoming-events-div").on("click", "button.artists", function () {
     var i = $(this).attr("id");
     console.log(similarArtists[i].yUrl);
-    $("#testArtist").append("<iframe style='visibility:hidden; display:none' src='"+similarArtists[i].yUrl+"'></iframe");
+    $("p."+i).append("<button class='toggle' id='play'>Play</button>");
+    $("p."+i).append("<button class='toggle' id='pause'>Pause</button>");
+
+    $("#iframes").html("<iframe id='video' style=' position: absolute; \
+    z-index: -1; visibility:hidden;' src='"
+    +similarArtists[i].yUrl
+    +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
+
+    var vid = document.getElementById("video");
+    iframe = vid.contentWindow;
+  });
+
+  $("#upcoming-events-div").on("click", "button.toggle", function () {
+    var attr = $(this).attr("id");
+    
+    if(attr === "play"){
+      iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
+    else{
+      iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }
   });
 });
