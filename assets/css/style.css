@@ -35,11 +35,11 @@ h3 {
     background: url("../images/brickwall/brickwall.png");
 }
 
-/* .parallax-container {
+.parallax-container {
     position: relative;
     overflow: hidden;
-    height: 500px;
-} */
+    height: 350px;
+}
 
 .row .col.l4 {
     height: 486px;
