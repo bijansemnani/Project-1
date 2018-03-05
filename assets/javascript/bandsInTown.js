@@ -74,7 +74,31 @@ function searchEventsInTown(artist, isTrue) {
          var eventMarker = new google.maps.Marker({
              position: {lat: venueLatitude, lng: venueLongitude},
              map: map,
-             icon: icon
+             icon: icon,
+             index: i,
+             artist: artist
+         }).addListener('click',function () {
+           console.log(this);
+           var datetime = (response[this.index].datetime);
+           var datetimeSplit = datetime.split("T");
+           var eventDate = datetimeSplit[0]; //EVENT DATE
+           var eventTime = datetimeSplit[1];
+           var markerWindow = "<p>"
+           + " " + "Artist: " + this.artist + "<br>"
+           + " " + "Venue: " + response[this.index].venue.name + "<br>"
+           + " - " + "City: " + response[this.index].venue.city + "<br>"
+           + " - " + "State/Region: "  + response[this.index].venue.region + "<br>"
+           + " - " + "Country: "  + response[this.index].venue.country + "<br>"
+           + " - " + "When: " + eventDate + "<br>"
+           + " - " + "Time: " + eventTime + "<br>"
+           + " - " + "Tickets: " + response[this.index].offers[0].url + "<br>"
+           + " - " + "Purchase tickets: " + response[this.index].offers[0].url
+           + "</p>";
+           console.log(markerWindow);
+           eventinfoWindow = new google.maps.InfoWindow({
+             content: markerWindow
+           });
+           eventinfoWindow.open(map, this);
          });
          markers.push(eventMarker);
          //------------------------------------------------------------------------------------------------------
