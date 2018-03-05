@@ -112,4 +112,4 @@ function searchEventsInTown(artist, isTrue) {
          $("#upcoming-events-div").append(eventInfo);
        }
    });
-   }
+}
