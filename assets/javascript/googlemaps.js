@@ -7,13 +7,13 @@ function initMap() {
         zoom: 6,
         styles: [/* INSERT STYLE HERE... COPY/PASTE FROM https://snazzymaps.com/style/142848/red-gray-black FOR EXAMPLE  */]
     });
-                        //-----------------------------------------
-                        var contentString =
-                        '<div id="content">We found you!</div>';
-                        infowindow = new google.maps.InfoWindow({
-                        content: contentString
-                        });
-                        //-----------------------------------------
+    //-----------------------------------------
+    var contentString =
+    '<div id="content">We found you!</div>';
+    infowindow = new google.maps.InfoWindow({
+    content: contentString
+    });
+    //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
@@ -38,39 +38,6 @@ function initMap() {
     } else {
         handleLocationError(false, infoWindow, map.getCenter());
     }
-                    //---------------------------------TESTING but it works pretty much------------------------------------------------
-
-                    function searchBandsInTown(artist) {
-                        // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
-                        var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-                        $.ajax({
-                        url: queryURL,
-                        method: "GET"
-                        }).then(function(response) {
-                            //---------------------------------this specific part needs work vvv------------------------------------------------
-                            // Printing the entire object to console
-                            console.log(response);
-                            // Constructing HTML containing the artist information
-                            var artistName = $("<h1>").text(artist);
-                            var artistURL = $("<a>").attr("href", response.url).append(artistName);
-                            var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
-                            var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
-                            // Empty the contents of the artist-div, append the new artist content
-                            $("#artist-div").empty();
-                            $("#artist-div").append(artistURL, upcomingEvents, goToArtist);
-                            });
-                            }
-                            // Event handler for user clicking the select-artist button
-                            $("#add-artist").on("click", function(event) {
-                                // Preventing the button from trying to submit the form
-                                event.preventDefault();
-                                // Storing the artist name
-                                var inputArtist = $("#artist-input").val().trim();
-                                // Running the searchBandsInTown function (passing in the artist as an argument)
-                                searchBandsInTown(inputArtist);
-                            });
-                            //---------------------------------this specific part needs work ^^^------------------------------------------------
-                    //---------------------------------TESTING but it works pretty much^^^------------------------------------------------
 }
 //---------------------------------------------------------------------------------
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
