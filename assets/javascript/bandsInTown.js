@@ -38,3 +38,58 @@ function search(artist) {
       $("#artist-div").append(artistURL, upcomingEvents, goToArtist);
   });
 }
+
+function searchEventsInTown(artist, isTrue) {
+   var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+   var icon = 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png';
+   if(isTrue){
+     icon = 'https://maps.google.com/mapfiles/kml/paddle/purple-diamond-lv.png'
+   }
+   $.ajax({
+       url: queryURL,
+       method: "GET"
+   }).then(function(response) {
+       console.log(response);
+       for (var i = 0; i < response.length; i++){
+         var venueLatitudeString = (response[i].venue.latitude);
+         var venueLongitudeString = (response[i].venue.longitude);
+         var datetime = (response[i].datetime);
+         var datetimeSplit = datetime.split("T");
+         //------------------------------------------------------------------------------------------------------
+         //BELOW ARE THE USEFUL VARIABLES
+         var venueName = (response[i].venue.name); //EVENT VENUE NAME
+         var venueCity = (response[i].venue.city); //EVENT CITY
+         var venueState = (response[i].venue.region); //EVENT STATE OR REGION
+         var venueCountry = (response[i].venue.country); //EVENT COUNTRY
+
+         var eventDate = datetimeSplit[0]; //EVENT DATE
+         var eventTime = datetimeSplit[1]; //EVENT TIME
+
+         var venueLatitude = Number(venueLatitudeString); //EVENT LATITUDE
+         var venueLongitude = Number(venueLongitudeString); //EVENT LONGITUDE
+
+         var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
+         var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
+         //------------------------------------------------------------------------------------------------------
+         var eventMarker = new google.maps.Marker({
+             position: {lat: venueLatitude, lng: venueLongitude},
+             map: map,
+             icon: icon
+         });
+         markers.push(eventMarker);
+         //------------------------------------------------------------------------------------------------------
+         var eventInfo = $("<p>").text("#" + (i + 1) + ":"
+         + " " + "Artist: " + artist
+         + " " + "Venue: " + venueName
+         + " - " + "City: " + venueCity
+         + " - " + "State/Region: "  + venueState
+         + " - " + "Country: "  + venueCountry
+         + " - " + "When: " + eventDate
+         + " - " + "Time: " + eventTime
+         + " - " + "Tickets: " + eventTicketStatus
+         + " - " + "Purchase tickets: " + eventTicket
+         );
+         $("#upcoming-events-div").append(eventInfo);
+       }
+   });
+   }
