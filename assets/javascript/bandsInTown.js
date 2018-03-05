@@ -71,12 +71,7 @@ function searchEventsInTown(artist, isTrue) {
          var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
          var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
          //------------------------------------------------------------------------------------------------------
-         var eventMarker = new google.maps.Marker({
-             position: {lat: venueLatitude, lng: venueLongitude},
-             map: map,
-             icon: icon
-         });
-         markers.push(eventMarker); 
+
         //-----------------------------------------------------
         for (i = 0; i < markers.length; i++){
             var eventcontentString = 
@@ -90,18 +85,11 @@ function searchEventsInTown(artist, isTrue) {
             '</div>';    
         }
         //-----------------------------------------------------
-        eventinfoWindow = new google.maps.InfoWindow({                    
-        content: eventcontentString                                            
-        });                   
-                                
-        for (var i = 0; i < markers.length; i++) { 
-            var marker = markers[i];                                      
-            google.maps.event.addListener(marker, 'click', function () {  
-            eventinfoWindow.open(map, this);                                  
-            });                                                           
-        }                                                                  
+        
+
+
          //------------------------------------------------------------------------------------------------------
-         var eventInfo = $("<p>").text("#" + (i) + ":"
+         var eventInfo = $("<p>").text("#" + i + ":"
          + " " + "Artist: " + artist
          + " " + "Venue: " + venueName
          + " - " + "City: " + venueCity
@@ -113,6 +101,7 @@ function searchEventsInTown(artist, isTrue) {
          + " - " + "Purchase tickets: " + eventTicket
          );
          $("#upcoming-events-div").append(eventInfo);
+         console.log(response);
        }
    });
    }
