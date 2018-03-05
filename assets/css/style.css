@@ -3,12 +3,36 @@
     width: 100%;
    }
 
+nav .nav-wrapper {
+    height: 90px;
+}
+
+.nav-wrapper {
+    background: #F1807D;
+}
+
 nav .brand-logo {
     margin-left: 40px;
+    color: #13876C;
+    margin-top: 10px;
+}
+
+h3 {
+    color: #13876C;
 }
 
 .nav-wrapper .input-field input {
     margin-right: 40px;
+}
+
+.row .col.s12 {
+    /* background: #E3E4E7; */
+    background: url("../images/brickwall/brickwall.png");
+}
+
+.row .col.l12 {
+    /* background: #E3E4E7; */
+    background: url("../images/brickwall/brickwall.png");
 }
 
 /* .parallax-container {
@@ -25,6 +49,16 @@ nav .brand-logo {
     display: block;
 }
 
+#add-artist {
+    background: #13876C;
+    color: #004757;
+    width: 100px;
+    height: 35px;
+    border: 1px solid #004757;
+}
+
 .page-footer {
     padding: 30px;
+    background-color: #F1807D;
+    color: #13876C;
 }
