@@ -1,4 +1,4 @@
-var map, infoWindow;
+var map, infoWindow, eventinfoWindow;
 var markers = [];
 
 function initMap() {
