@@ -23,6 +23,7 @@ $(document).ready(function () {
       });
   }
 
+  //get similar artists from the user picked aritst using tasteDive
   function similiarArtists(artist) {
     $.ajax({
           url: tasteDive,
@@ -33,8 +34,13 @@ $(document).ready(function () {
           },
           dataType: 'JSONP',
           success: function (response) {
+            //empty events div
             $("#upcoming-events-div").empty();
+
+            //get similarArtists from the tasteDive api
             similarArtists = response.Similar.Results;
+
+            //for each artist get their tour dates and locations
             for (var i = 0; i < similarArtists.length; i++) {
               console.log(similarArtists[i].Name);
               searchEventsInTown(similarArtists[i].Name, true, i);
@@ -43,33 +49,45 @@ $(document).ready(function () {
     });
   }
 
+  //when user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
+    //get the artist from the input box then empty it
     query = $("#artist-input").val();
     $("#artist-input").val("");
+
+    //get similar artists, search events then display events on map
     similiarArtists(query);
     search(query);
     searchEventsInTown(query, false);
   });
 
+  //when user clicks on artist button play youtube video
   $("#upcoming-events-div").on("click", "button.artists", function () {
+    //get the index for the similarArtist array from the id attr
     var i = $(this).attr("id");
-    console.log(similarArtists[i].yUrl);
+
+    //create play and pause buttons
     $("p."+i).append("<button class='toggle' id='play'>Play</button>");
     $("p."+i).append("<button class='toggle' id='pause'>Pause</button>");
 
+    //create the iframe for the youtube video
     $("#iframes").html("<iframe id='video' style=' position: absolute; \
     z-index: -1; visibility:hidden;' src='"
     +similarArtists[i].yUrl
     +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
 
+    //get the iframe info for toggling purposes
     var vid = document.getElementById("video");
     iframe = vid.contentWindow;
   });
 
+  //play/pause button functionality for the youtube videos
   $("#upcoming-events-div").on("click", "button.toggle", function () {
+    //get the id of the id from the play or pause buttons
     var attr = $(this).attr("id");
-    
+
+    //toggle the video depending on which button was pressed
     if(attr === "play"){
       iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
     }
