@@ -25,24 +25,50 @@ h3 {
     margin-right: 40px;
 }
 
+.section.white {
+    padding: 0;
+}
+
 .row .col.s12 {
     /* background: #E3E4E7; */
+    /* background: url("../images/escheresque/escheresque.png"); */
+    /* background: url("../images/purty_wood/purty_wood.png"); 
+    opacity: .8; */
+    /* background: url("../images/skelatal_weave/skelatal_weave.png"); */
     background: url("../images/brickwall/brickwall.png");
 }
 
-.row .col.l12 {
-    /* background: #E3E4E7; */
-    background: url("../images/brickwall/brickwall.png");
+.active {
+    color: #13876C;
 }
 
-/* .parallax-container {
-    position: relative;
-    overflow: hidden;
-    height: 500px;
+#artist-form {
+    color: #13876C;
+}
+
+#a {
+    margin: 0;
+}
+
+#similar-artist {
+    background: url("../images/brickwall/brickwall.png");
+    margin: 0;
+    padding: 30px 10px;
+}
+
+/* .row .col.l12 {
+    background: #E3E4E7;
+    background: url("../images/purty_wood/purty_wood.png");
 } */
 
+.parallax-container {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+}
+
 .row .col.l4 {
-    height: 486px;
+    height: 484px;
 }
 
 .parallax-container .parallax img {
@@ -50,7 +76,7 @@ h3 {
 }
 
 #add-artist {
-    background: #13876C;
+    background: #44A688;
     color: #004757;
     width: 100px;
     height: 35px;
