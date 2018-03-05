@@ -34,10 +34,8 @@ $(document).ready(function () {
             $("#testArtist").empty();
             similarArtists = response.Similar.Results;
             for (var i = 0; i < similarArtists.length; i++) {
-              console.log(similarArtists[i].yUrl);
-              $("#testArtist").append("<button id='" +i +
-              "'class='artists'>"+ similarArtists[i].Name+ "</button> <br>");
-              searchBandsInTown(similarArtists[i].Name);
+              console.log(similarArtists[i].Name);
+              searchEventsInTown(similarArtists[i].Name, true);
             }
           }
     });
@@ -47,7 +45,9 @@ $(document).ready(function () {
     event.preventDefault();
     query = $("#artist-input").val();
     $("#artist-input").val("");
-    ajaxCall(query);
+    similiarArtists(query);
+    search(query);
+    searchEventsInTown(query, false);
   });
 
   $("#testArtist").on("click", "button.artists", function () {
