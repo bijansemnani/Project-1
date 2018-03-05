@@ -78,19 +78,22 @@ function searchEventsInTown(artist, isTrue) {
          });
          markers.push(eventMarker); 
         //-----------------------------------------------------
+        for (i = 0; i < markers.length; i++){
             var eventcontentString = 
             '<div>' +
             '<p>' + artist + '</p>' +
+            '<p>' + eventDate + '</p>' +
+            '<p>' + eventTime + '</p>' +
             '<p>' + venueName + '</p>' +
             '<p>' + venueCity + "," + " " + venueState + '</p>' +
             '<p>' + venueCountry + '</p>' +
-            '<p>' + eventDate + '</p>' +
-            '<p>' + eventTime + '</p>' +
             '</div>';    
+        }
         //-----------------------------------------------------
         eventinfoWindow = new google.maps.InfoWindow({                    
         content: eventcontentString                                            
         });                   
+                                
         for (var i = 0; i < markers.length; i++) { 
             var marker = markers[i];                                      
             google.maps.event.addListener(marker, 'click', function () {  
@@ -112,4 +115,4 @@ function searchEventsInTown(artist, isTrue) {
          $("#upcoming-events-div").append(eventInfo);
        }
    });
-}
+   }
