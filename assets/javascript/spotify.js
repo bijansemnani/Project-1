@@ -43,7 +43,10 @@ $(document).ready(function () {
             //for each artist get their tour dates and locations
             for (var i = 0; i < similarArtists.length; i++) {
               console.log(similarArtists[i].Name);
-              searchEventsInTown(similarArtists[i].Name, true, i);
+              searchEventsInTown(similarArtists[i].Name, true);
+              $("#artists").append("<p class='"+i+"'>")
+              $("#artists").append("<button id='"+i
+              +"' class='artists'>" + similarArtists[i].Name + "</button>");
             }
           }
     });
@@ -63,7 +66,7 @@ $(document).ready(function () {
   });
 
   //when user clicks on artist button play youtube video
-  $("#upcoming-events-div").on("click", "button.artists", function () {
+  $("#artists").on("click", "button.artists", function () {
     //get the index for the similarArtist array from the id attr
     var i = $(this).attr("id");
 
@@ -83,7 +86,7 @@ $(document).ready(function () {
   });
 
   //play/pause button functionality for the youtube videos
-  $("#upcoming-events-div").on("click", "button.toggle", function () {
+  $("#artists").on("click", "button.toggle", function () {
     //get the id of the id from the play or pause buttons
     var attr = $(this).attr("id");
 
