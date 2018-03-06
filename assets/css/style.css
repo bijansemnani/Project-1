@@ -32,7 +32,7 @@ h3 {
 
 .row .col.s12 {
     /* background: #E3E4E7; */
-    background: url("../images/zzz.jpg");
+    background: url("../images/red.jpg");
     /* background: url("../images/purty_wood/purty_wood.png"); 
     opacity: .8; */
     /* background: url("../images/skelatal_weave/skelatal_weave.png"); */
@@ -52,9 +52,13 @@ h3 {
 }
 
 #similar-artist {
-    background: url("../images/zzz.jpg");
+    background: url("../images/red.jpg");
     margin: 0;
     padding: 30px 10px;
+}
+
+label {
+    color: white;
 }
 
 .carousel .carousel-item {
