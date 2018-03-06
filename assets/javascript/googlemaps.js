@@ -114,17 +114,6 @@ function initMap() {
             userLat = position.coords.latitude;
             userLong = position.coords.longitude;
 
-            //Create circle around user's location
-            center = new google.maps.LatLng(userLat,userLong);
-            circle = new google.maps.Circle({
-              map: map,
-              center: center,
-              radius: 1000000
-            });
-
-            //Get the bounds of the circle for later use
-            bounds = circle.getBounds();
-
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -148,6 +137,7 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 }
+
 //---------------------------------------------------------------------------------
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);

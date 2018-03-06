@@ -53,12 +53,27 @@ $(document).ready(function () {
     });
   }
 
+  function setCircle(radius) {
+    //Create circle around user's location
+    center = new google.maps.LatLng(userLat,userLong);
+    circle = new google.maps.Circle({
+      map: map,
+      center: center,
+      radius: radius
+    });
+    //Get the bounds of the circle for later use
+    bounds = circle.getBounds();
+  }
+
   //when user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
     //get the artist from the input box then empty it
     query = $("#artist-input").val();
     $("#artist-input").val("");
+    var radius = Number($("#radius-input").val());
+    $("#radius-input").val("");
+    setCircle(radius);
 
     //get similar artists, search events then display events on map
     similiarArtists(query);
