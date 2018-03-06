@@ -32,15 +32,15 @@ function search(artist) {
       var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist content
       $("#artist-div").empty();
-      $("#artist-div").append(artistURL, upcomingEvents, goToArtist);
+      $("#artist-div").append(artistURL, upcomingEvents);
   });
 }
 
 function searchEventsInTown(artist, isTrue) {
    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-   var icon = 'https://maps.google.com/mapfiles/kml/paddle/grn-diamond-lv.png';
+   var icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-stars-lv.png';
    if(isTrue){
-     icon = 'https://maps.google.com/mapfiles/kml/paddle/purple-diamond-lv.png'
+     icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-stars-lv.png'
    }
    $.ajax({
        url: queryURL,
@@ -89,17 +89,17 @@ function searchEventsInTown(artist, isTrue) {
              var eventDate = datetimeSplit[0]; //EVENT DATE
              var eventTime = datetimeSplit[1];
 
-             //Content to be displayed in the window when marker is clicked
-             var markerWindow ="<ul>"+
-             "<li>" + "Artist: "       + this.artist + "<li>" +
-             "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
-             "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
-             "<li>" + "State/Region: " + response[this.index].venue.region  + "<li>" +
-             "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
-             "<li>" + "When: "         + eventDate                          + "<li>" +
-             "<li>" + "Time: "         + eventTime                          + "<li>" +
-             "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
-                                       + "</ul>";
+           //Content to be displayed in the window when marker is clicked
+           var markerWindow ="<ul>"+
+           "<li>" + "Artist: "       + this.artist + "<li>" +
+           "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
+           "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
+           "<li>" + "Region: "      + response[this.index].venue.region  + "<li>" +
+           "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
+           "<li>" + "When: "         + eventDate                          + "<li>" +
+           "<li>" + "Time: "         + eventTime                          + "<li>" +
+           "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
+                                     + "</ul>";
 
             //Create a new content window and set it to be the content saved for that specific marker
              eventinfoWindow = new google.maps.InfoWindow({
