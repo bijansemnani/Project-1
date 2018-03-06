@@ -125,17 +125,17 @@ function searchEventsInTown(artist, isTrue) {
          var eventInfoDiv3 = $("<div>");
          eventInfoDiv3.addClass("card-content white-text");
          
-         var eventInfoSpan = $("<span class = 'card-title'>INSERT BAND NAME</span>"
+         var eventInfoSpan = $("<span class = 'card-title'>" + artist + "</span>"
          + "<p>Venue: " + venueName + "</p>"
          + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
          + "<p>Date & Time: " + eventDate + ", " + eventTime + "</p>");
 
-        var ticketInfoDiv = $("<div>");
-        ticketInfoDiv.addClass("card-action");
-        var ticketInfoA = $("<a>").text("BUY TICKETS");
-        ticketInfoA.attr("target", "_blank");
-        ticketInfoA.attr("href", eventTicket);
-        ticketInfoDiv.append(ticketInfoA);
+         var ticketInfoDiv = $("<div>");
+         ticketInfoDiv.addClass("card-action");
+         var ticketInfoA = $("<a>").text("BUY TICKETS");
+         ticketInfoA.attr("target", "_blank");
+         ticketInfoA.attr("href", eventTicket);
+         ticketInfoDiv.append(ticketInfoA);
         
          
         //  $("<p>").text("#" + (i + 1) + ":"
