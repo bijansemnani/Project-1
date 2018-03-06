@@ -1,3 +1,17 @@
+// Querying the bandsintown artist info api to display pics of similar bands in carousel
+function searchArtistInfo (artist) {
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var searchArtistPic = response.thumb_url;
+        console.log(searchArtistPic);
+        var carouselPic = $("<a class = 'carousel-item'><img src = '" + searchArtistPic + "'><a>");
+        $(".carousel").append(carouselPic);
+    });
+}
+
 function searchBandsInTown(artist) {
     //console.log(similarArtists);
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
@@ -26,10 +40,9 @@ function search(artist) {
   method: "GET"
   }).then(function(response) {
       // Constructing HTML containing the artist information
-      var artistName = $("<h1>").text(artist);
-      var artistURL = $("<a>").attr("href", response.url).append(artistName);
-      var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
-      var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
+       var artistURL = $("<a>").attr("href", response.url).append(artistName);
+       var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
+       var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist content
       $("#artist-div").empty();
       $("#artist-div").append(artistURL, upcomingEvents);
@@ -108,25 +121,62 @@ function searchEventsInTown(artist, isTrue) {
              //On a click open the content window for the specified marker
              eventinfoWindow.open(map, this);
            });
-           //Push all event markers onto the markers array
-           markers.push(eventMarker);
+           eventinfoWindow.open(map, this);
+         
+            markers.push(eventMarker);
          }
-         //--------------------------------Display Artist and Concert Info---------------------//
-         //Store info about each event in eventInfo var to be displayed
-         var eventInfo = $("<p>").text("#" + (i + 1) + ":"
-         + " " + "Artist: " + artist
-         + " " + "Venue: " + venueName
-         + " - " + "City: " + venueCity
-         + " - " + "State/Region: "  + venueState
-         + " - " + "Country: "  + venueCountry
-         + " - " + "When: " + eventDate
-         + " - " + "Time: " + eventTime
-         + " - " + "Tickets: " + eventTicketStatus
-         + " - " + "Purchase tickets: " + eventTicket
-         );
+         //------------------------------------------------------------------------------------------------------
+         var eventInfoDiv = $("<div>");
+         eventInfoDiv.addClass("col s12 m3");
+         
+         var eventInfoDiv2 = $("<div>");
+         eventInfoDiv2.addClass("card blue-grey darken-1");
+        
+         var eventInfoDiv3 = $("<div>");
+         eventInfoDiv3.addClass("card-content white-text");
+         
+         var eventInfoSpan = $("<span class = 'card-title'>" + artist + "</span>"
+         + "<p>Venue: " + venueName + "</p>"
+         + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
+         + "<p>Date & Time: " + eventDate + ", " + eventTime + "</p>");
 
-         //Display each event on html page
-         $("#upcoming-events-div").append(eventInfo);
+         var ticketInfoDiv = $("<div>");
+         ticketInfoDiv.addClass("card-action");
+         var ticketInfoA = $("<a>").text("BUY TICKETS");
+         ticketInfoA.attr("target", "_blank");
+         ticketInfoA.attr("href", eventTicket);
+         ticketInfoDiv.append(ticketInfoA);
+        
+         
+        //  $("<p>").text("#" + (i + 1) + ":"
+        //   + "<span class = 'card-title'>INSERT BAND NAME</span>"
+        //   + "<p>Venue: " + venueName + "</p>"
+        //   + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
+        //   + "<p>Date $ Time: " + eventDate + ", " + eventTime + "</p>"
+
+        // var ticketInfo = $("div");
+        // ticketInfo.addClass("card-action");
+        // ticketInfo.attr("<a> href = " + eventTicket + "</a>");
+        
+
+
+        //  + "<p>" + "Venue: " + venueName
+        //  + "<p>" + "City: " + venueCity
+        //  + " - " + "State/Region: "  + venueState
+        // //  + " - " + "Country: "  + venueCountry
+        //  + "<p>" + "When: " + eventDate
+        //  + " - " + "Time: " + eventTime
+        //  + "<p>" + "Tickets: " + eventTicketStatus
+        //  + "<p>" + "Purchase tickets: " + eventTicket
+        //  );
+        // $("#upcoming-events-div").append(eventInfo);
+        $("#similarArtistEvents").append(eventInfoDiv);
+        eventInfoDiv.append(eventInfoDiv2);
+        eventInfoDiv2.append(eventInfoDiv3, ticketInfoDiv);
+        eventInfoDiv3.append(eventInfoSpan);
+
+        
+        
        }
    });
 }
