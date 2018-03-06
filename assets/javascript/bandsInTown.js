@@ -65,50 +65,55 @@ function searchEventsInTown(artist, isTrue) {
          var eventDate = datetimeSplit[0]; //EVENT DATE
          var eventTime = datetimeSplit[1]; //EVENT TIME
 
-         var venueLatitude = Number(venueLatitudeString); //EVENT LATITUDE
-         var venueLongitude = Number(venueLongitudeString); //EVENT LONGITUDE
+         var venueLat = Number(venueLatitudeString); //EVENT LATITUDE
+         var venueLong = Number(venueLongitudeString); //EVENT LONGITUDE
+
+         var eventLocation = new google.maps.LatLng(venueLat,venueLong)
 
          var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
          var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
 
          //--------------------------------Event Marker Creation-------------------------------//
          //Create a marker for each event on the map save the index and artist name for later use
-         var eventMarker = new google.maps.Marker({
-             position: {lat: venueLatitude, lng: venueLongitude},
-             map: map,
-             icon: icon,
-             index: i,
-             artist: artist
+         if(bounds.contains(eventLocation) === true){
+           var eventMarker = new google.maps.Marker({
+               position: {lat: venueLat, lng: venueLong},
+               map: map,
+               icon: icon,
+               index: i,
+               artist: artist
 
-         //Add a click listener to each marker
-         }).addListener('click',function () {
-           //Vars for the date and event times
-           var datetime = (response[this.index].datetime);
-           var datetimeSplit = datetime.split("T");
-           var eventDate = datetimeSplit[0]; //EVENT DATE
-           var eventTime = datetimeSplit[1];
+           //Add a click listener to each marker
+           }).addListener('click',function () {
+             //Vars for the date and event times
+             var datetime = (response[this.index].datetime);
+             var datetimeSplit = datetime.split("T");
+             var eventDate = datetimeSplit[0]; //EVENT DATE
+             var eventTime = datetimeSplit[1];
 
-           //Content to be displayed in the window when marker is clicked
-           var markerWindow ="<ul>"+
-           "<li>" + "Artist: "       + this.artist + "<li>" +
-           "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
-           "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
-           "<li>" + "State/Region: " + response[this.index].venue.region  + "<li>" +
-           "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
-           "<li>" + "When: "         + eventDate                          + "<li>" +
-           "<li>" + "Time: "         + eventTime                          + "<li>" +
-           "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
-                                     + "</ul>";
+             //Content to be displayed in the window when marker is clicked
+             var markerWindow ="<ul>"+
+             "<li>" + "Artist: "       + this.artist + "<li>" +
+             "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
+             "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
+             "<li>" + "State/Region: " + response[this.index].venue.region  + "<li>" +
+             "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
+             "<li>" + "When: "         + eventDate                          + "<li>" +
+             "<li>" + "Time: "         + eventTime                          + "<li>" +
+             "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
+                                       + "</ul>";
 
-          //Create a new content window and set it to be the content saved for that specific marker
-           eventinfoWindow = new google.maps.InfoWindow({
-             content: markerWindow
+            //Create a new content window and set it to be the content saved for that specific marker
+             eventinfoWindow = new google.maps.InfoWindow({
+               content: markerWindow
+             });
+             //On a click open the content window for the specified marker
+             eventinfoWindow.open(map, this);
            });
-           //On a click open the content window for the specified marker
-           eventinfoWindow.open(map, this);
-         });
-         //Push all event markers onto the markers array
-         markers.push(eventMarker);
+           console.log(eventMarker);
+           //Push all event markers onto the markers array
+           markers.push(eventMarker);
+         }
          //--------------------------------Display Artist and Concert Info---------------------//
          //Store info about each event in eventInfo var to be displayed
          var eventInfo = $("<p>").text("#" + (i + 1) + ":"

@@ -1,4 +1,5 @@
-var map, infoWindow;
+var map, infoWindow, service, request;
+var userLat, userLong, userPos;
 var markers = [];
 
 function initMap() {
@@ -107,6 +108,19 @@ function initMap() {
     //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            userLat = position.coords.latitude;
+            userLong = position.coords.longitude;
+            center = new google.maps.LatLng(userLat,userLong);
+            circle = new google.maps.Circle({
+              map: map,
+              center: center,
+              radius: 1000000
+            });
+            bounds = circle.getBounds();
+            request = {
+                location: userPos,
+                radius: '10000'
+            };
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
