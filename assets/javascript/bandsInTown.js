@@ -132,7 +132,7 @@ function searchEventsInTown(artist, isTrue) {
          }
          //------------------------------------------------------------------------------------------------------
          var eventInfoDiv = $("<div>");
-         eventInfoDiv.addClass("col s3 m3");
+         eventInfoDiv.addClass("col s3 m6");
 
          var eventInfoDiv2 = $("<div>");
          eventInfoDiv2.addClass("card blue-grey darken-1");
@@ -143,7 +143,8 @@ function searchEventsInTown(artist, isTrue) {
          var eventInfoSpan = $("<span class = 'card-title'>" + artist + "</span>"
          + "<p>Venue: " + venueName + "</p>"
          + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
-         + "<p>Date & Time: " + eventDate + ", " + eventTime + "</p>");
+         + "<p>Date: " + eventDate + "</p>"
+         + "<p>Time: " + eventTime + "</p>");
 
          var ticketInfoDiv = $("<div>");
          ticketInfoDiv.addClass("card-action");
