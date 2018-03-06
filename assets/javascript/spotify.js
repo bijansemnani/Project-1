@@ -54,6 +54,7 @@ $(document).ready(function () {
     });
   }
 
+  //Create the radius circle based on user's inputted radius
   function setCircle(radius) {
     if(radiusSet === true){
       circle.setMap(null);
