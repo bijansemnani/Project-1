@@ -4,21 +4,13 @@
     <meta charset="utf-8">
     <title>Project-1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <!-- Materialize Icons -->
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
-    <script type="text/javascript" src="assets/javascript/bandsInTown.js"></script>
-    <script type="text/javascript" src="assets/javascript/spotify.js"></script>
-    <script type="text/javascript" src="assets/javascript/food2fork.js"></script>
+
   </head>
 
   <body>
@@ -37,7 +29,7 @@
       </div>
     </div>
     <!-- Main Section w/ Map, Search, and dynamic artist return info -->
-    <div class="section white">
+    <!-- <div class="section white"> -->
       <div class="row" id="a">
         <!-- Map -->
         <div class="col l8 s12 hoverable">
@@ -62,10 +54,12 @@
       <div class="col l12 hoverable z-depth-3" id="similar-artist-div">
         <h3 id="similar-artist">Similar Artists</h3>
         <!-- <div class = "b"></div> -->
-        <div class="carousel"></div>
+        <div id="artistCar" class="carousel">
+
+        </div>
       </div>
       <!-- Similar Artists dynamic event info -->
-      <div class = "row" id = "similarArtistEvents">
+      <div class="row" id="similarArtistEvents">
         <!-- <div class = "card-action">TIX LINK INFO</div> -->
 
       </div>
@@ -97,5 +91,11 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap&libraries=places&libraries=geometry">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <!-- Materialize Icons -->
+    <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
+    <script type="text/javascript" src="assets/javascript/bandsInTown.js"></script>
+    <script type="text/javascript" src="assets/javascript/spotify.js"></script>
+    <script type="text/javascript" src="assets/javascript/food2fork.js"></script>
   </body>
 </html>

@@ -1,14 +1,21 @@
 // Querying the bandsintown artist info api to display pics of similar bands in carousel
 function searchArtistInfo (artist) {
+  console.log(count);
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
+        var string = numToString(count);
+        console.log(string);
         var searchArtistPic = response.thumb_url;
-        console.log(searchArtistPic);
-        var carouselPic = $("<a class = 'carousel-item'><img src = '" + searchArtistPic + "'><a>");
-        $(".carousel").append(carouselPic);
+        var carousel = $("<a class='carousel-item' href='#one!'><img src ='"+ searchArtistPic + "'></a>");
+         $(".carousel").append(carousel);
+         count++;
+         if(count === 10){
+           $('.carousel-item').first().addClass('active');
+           $('.carousel').carousel();
+         }
     });
 }
 
@@ -122,19 +129,19 @@ function searchEventsInTown(artist, isTrue) {
              eventinfoWindow.open(map, this);
            });
            eventinfoWindow.open(map, this);
-         
+
             markers.push(eventMarker);
          }
          //------------------------------------------------------------------------------------------------------
          var eventInfoDiv = $("<div>");
-         eventInfoDiv.addClass("col s12 m3");
-         
+         eventInfoDiv.addClass("col s3 m3");
+
          var eventInfoDiv2 = $("<div>");
          eventInfoDiv2.addClass("card blue-grey darken-1");
-        
+
          var eventInfoDiv3 = $("<div>");
          eventInfoDiv3.addClass("card-content white-text");
-         
+
          var eventInfoSpan = $("<span class = 'card-title'>" + artist + "</span>"
          + "<p>Venue: " + venueName + "</p>"
          + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
@@ -146,8 +153,8 @@ function searchEventsInTown(artist, isTrue) {
          ticketInfoA.attr("target", "_blank");
          ticketInfoA.attr("href", eventTicket);
          ticketInfoDiv.append(ticketInfoA);
-        
-         
+
+
         //  $("<p>").text("#" + (i + 1) + ":"
         //   + "<span class = 'card-title'>INSERT BAND NAME</span>"
         //   + "<p>Venue: " + venueName + "</p>"
@@ -157,7 +164,7 @@ function searchEventsInTown(artist, isTrue) {
         // var ticketInfo = $("div");
         // ticketInfo.addClass("card-action");
         // ticketInfo.attr("<a> href = " + eventTicket + "</a>");
-        
+
 
 
         //  + "<p>" + "Venue: " + venueName
@@ -175,8 +182,8 @@ function searchEventsInTown(artist, isTrue) {
         eventInfoDiv2.append(eventInfoDiv3, ticketInfoDiv);
         eventInfoDiv3.append(eventInfoSpan);
 
-        
-        
+
+
        }
    });
 }

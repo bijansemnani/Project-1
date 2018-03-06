@@ -1,3 +1,4 @@
+var count = 0;
 $(document).ready(function () {
   $('.parallax').parallax();
   var similarArtists;
@@ -6,6 +7,7 @@ $(document).ready(function () {
   var youTube;
   var iframe;
   var radiusSet = false;
+
 
   function ajaxCall(query) {
     $.ajax({
@@ -27,6 +29,7 @@ $(document).ready(function () {
 
   //get similar artists from the user picked artist using tasteDive
   function similiarArtists(artist) {
+    count = 0;
     $.ajax({
           url: tasteDive,
           data: {
@@ -42,20 +45,19 @@ $(document).ready(function () {
 
             //get similarArtists from the tasteDive api
             similarArtists = response.Similar.Results;
-
             //for each artist get their tour dates and locations
             for (var i = 0; i < similarArtists.length; i++) {
-              console.log(similarArtists[i].Name);
               searchEventsInTown(similarArtists[i].Name, true);
               searchArtistInfo(similarArtists[i].Name);
               $("#artists").append("<p class='"+i+"'>")
               $("#artists").append("<button id='"+i
               +"' class='artists'>" + similarArtists[i].Name + "</button>");
             }
+            setTimeout(function () {
+            }, 1000);
           }
     });
     // Initialize carousel of dynamically created band pics (similar artists)
-    $('.carousel').carousel();
   }
 
   //Create the radius circle based on user's inputted radius
@@ -79,7 +81,7 @@ $(document).ready(function () {
   //when user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
-
+    count = 0;
     //get the artist from the input box then empty it
     query = $("#artist-input").val();
     $("#artist-input").val("");
