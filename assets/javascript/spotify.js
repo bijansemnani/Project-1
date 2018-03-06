@@ -48,13 +48,11 @@ $(document).ready(function () {
             //for each artist get their tour dates and locations
             for (var i = 0; i < similarArtists.length; i++) {
               searchEventsInTown(similarArtists[i].Name, true);
-              searchArtistInfo(similarArtists[i].Name);
+              searchArtistInfo(similarArtists[i].Name, i);
               $("#artists").append("<p class='"+i+"'>")
               $("#artists").append("<button id='"+i
               +"' class='artists'>" + similarArtists[i].Name + "</button>");
             }
-            setTimeout(function () {
-            }, 1000);
           }
     });
     // Initialize carousel of dynamically created band pics (similar artists)
@@ -96,7 +94,7 @@ $(document).ready(function () {
   });
 
   //when user clicks on artist button play youtube video
-  $("#artists").on("click", "button.artists", function () {
+  $(document).on("click", "a.carousel-item", function () {
     //get the index for the similarArtist array from the id attr
     var i = $(this).attr("id");
 

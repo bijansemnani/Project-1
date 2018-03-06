@@ -1,15 +1,13 @@
 // Querying the bandsintown artist info api to display pics of similar bands in carousel
-function searchArtistInfo (artist) {
+function searchArtistInfo (artist, index) {
   console.log(count);
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-        var string = numToString(count);
-        console.log(string);
         var searchArtistPic = response.thumb_url;
-        var carousel = $("<a class='carousel-item' href='#one!'><img src ='"+ searchArtistPic + "'></a>");
+        var carousel = $("<a id='"+index+"' class='carousel-item' href='#one!'><img src ='"+ searchArtistPic + "'></a>");
          $(".carousel").append(carousel);
          count++;
          if(count === 10){
