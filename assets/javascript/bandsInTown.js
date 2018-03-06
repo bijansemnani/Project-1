@@ -25,9 +25,6 @@ function search(artist) {
   url: queryURL,
   method: "GET"
   }).then(function(response) {
-      //---------------------------------this specific part needs work vvv------------------------------------------------
-      // Printing the entire object to console
-      console.log(response);
       // Constructing HTML containing the artist information
       var artistName = $("<h1>").text(artist);
       var artistURL = $("<a>").attr("href", response.url).append(artistName);
@@ -49,13 +46,12 @@ function searchEventsInTown(artist, isTrue) {
        url: queryURL,
        method: "GET"
    }).then(function(response) {
-       console.log(response);
        for (var i = 0; i < response.length; i++){
          var venueLatitudeString = (response[i].venue.latitude);
          var venueLongitudeString = (response[i].venue.longitude);
          var datetime = (response[i].datetime);
          var datetimeSplit = datetime.split("T");
-         //------------------------------------------------------------------------------------------------------
+         //--------------------------------Concert & Artist Information------------------------//
          //BELOW ARE THE USEFUL VARIABLES
          var venueName = (response[i].venue.name); //EVENT VENUE NAME
          var venueCity = (response[i].venue.city); //EVENT CITY
@@ -65,25 +61,35 @@ function searchEventsInTown(artist, isTrue) {
          var eventDate = datetimeSplit[0]; //EVENT DATE
          var eventTime = datetimeSplit[1]; //EVENT TIME
 
-         var venueLatitude = Number(venueLatitudeString); //EVENT LATITUDE
-         var venueLongitude = Number(venueLongitudeString); //EVENT LONGITUDE
+         var venueLat = Number(venueLatitudeString); //EVENT LATITUDE
+         var venueLong = Number(venueLongitudeString); //EVENT LONGITUDE
+
+         //Set the eventLocation as a google maps LatLong location
+         var eventLocation = new google.maps.LatLng(venueLat,venueLong)
 
          var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
          var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
-         //------------------------------------------------------------------------------------------------------
-         var eventMarker = new google.maps.Marker({
-             position: {lat: venueLatitude, lng: venueLongitude},
-             map: map,
-             icon: icon,
-             index: i,
-             artist: artist
-         }).addListener('click',function () {
-           console.log(this);
-           var datetime = (response[this.index].datetime);
-           var datetimeSplit = datetime.split("T");
-           var eventDate = datetimeSplit[0]; //EVENT DATE
-           var eventTime = datetimeSplit[1];
 
+         //--------------------------------Event Marker Creation-------------------------------//
+         //Check to see if the location is within the given radius
+         if(bounds.contains(eventLocation) === true){
+           //Create a marker for each event on the map save the index and artist name for later use
+           var eventMarker = new google.maps.Marker({
+               position: {lat: venueLat, lng: venueLong},
+               map: map,
+               icon: icon,
+               index: i,
+               artist: artist
+
+           //Add a click listener to each marker
+           }).addListener('click',function () {
+             //Vars for the date and event times
+             var datetime = (response[this.index].datetime);
+             var datetimeSplit = datetime.split("T");
+             var eventDate = datetimeSplit[0]; //EVENT DATE
+             var eventTime = datetimeSplit[1];
+
+           //Content to be displayed in the window when marker is clicked
            var markerWindow ="<ul>"+
            "<li>" + "Artist: "       + this.artist + "<li>" +
            "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
@@ -95,16 +101,18 @@ function searchEventsInTown(artist, isTrue) {
            "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
                                      + "</ul>";
 
-
-
-           console.log(markerWindow);
-           eventinfoWindow = new google.maps.InfoWindow({
-             content: markerWindow
+            //Create a new content window and set it to be the content saved for that specific marker
+             eventinfoWindow = new google.maps.InfoWindow({
+               content: markerWindow
+             });
+             //On a click open the content window for the specified marker
+             eventinfoWindow.open(map, this);
            });
-           eventinfoWindow.open(map, this);
-         });
-         markers.push(eventMarker);
-         //------------------------------------------------------------------------------------------------------
+           //Push all event markers onto the markers array
+           markers.push(eventMarker);
+         }
+         //--------------------------------Display Artist and Concert Info---------------------//
+         //Store info about each event in eventInfo var to be displayed
          var eventInfo = $("<p>").text("#" + (i + 1) + ":"
          + " " + "Artist: " + artist
          + " " + "Venue: " + venueName
@@ -116,6 +124,8 @@ function searchEventsInTown(artist, isTrue) {
          + " - " + "Tickets: " + eventTicketStatus
          + " - " + "Purchase tickets: " + eventTicket
          );
+
+         //Display each event on html page
          $("#upcoming-events-div").append(eventInfo);
        }
    });

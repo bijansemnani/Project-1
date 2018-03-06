@@ -1,4 +1,7 @@
 var map, infoWindow;
+var userLat, userLong, userPos;
+var circle;
+var bounds;
 var markers = [];
 
 function initMap() {
@@ -268,6 +271,10 @@ function initMap() {
     //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            //Get user position
+            userLat = position.coords.latitude;
+            userLong = position.coords.longitude;
+
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -291,6 +298,7 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 }
+
 //---------------------------------------------------------------------------------
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);

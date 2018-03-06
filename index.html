@@ -15,9 +15,6 @@
     <!-- Materialize Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script type="text/javascript">
-      var similarArtists;
-    </script>
     <script type="text/javascript" src="assets/javascript/googlemaps.js"></script>
     <script type="text/javascript" src="assets/javascript/bandsInTown.js"></script>
     <script type="text/javascript" src="assets/javascript/spotify.js"></script>
@@ -51,8 +48,9 @@
         <div class="col l4 s12 hoverable">
           <h3 class="header">Side Bar</h3>
           <form id="artist-form">
-            <label for="artist-input">Search Band Name</label>
+            <label for="artist-input">Search Band Name and set Search Radius</label>
             <input type="text" id="artist-input"><br>
+            <input type="text" id="radius-input"><br>
             <!-- Button triggers new artist to be searched -->
             <input id="add-artist" type="submit" value="Search">
           </form>
@@ -93,7 +91,7 @@
     </div>
 
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsHSgTEybmdJIpKtwISZD9UlnP2kYRZJc&callback=initMap&libraries=places&libraries=geometry">
     </script>
   </body>
 </html>

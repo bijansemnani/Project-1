@@ -1,9 +1,11 @@
 $(document).ready(function () {
   $('.parallax').parallax();
+  var similarArtists;
   var queryUrl = "https://itunes.apple.com/search";
   var tasteDive = "https://tastedive.com/api/similar?k=301824-Project1-648PWR92&";
   var youTube;
   var iframe;
+  var radiusSet = false;
 
   function ajaxCall(query) {
     $.ajax({
@@ -52,12 +54,33 @@ $(document).ready(function () {
     });
   }
 
+  //Create the radius circle based on user's inputted radius
+  function setCircle(radius) {
+    if(radiusSet === true){
+      circle.setMap(null);
+      radiusSet = false;
+    }
+    //Create circle around user's location
+    center = new google.maps.LatLng(userLat,userLong);
+    circle = new google.maps.Circle({
+      map: map,
+      center: center,
+      radius: radius
+    });
+    //Get the bounds of the circle for later use
+    bounds = circle.getBounds();
+    radiusSet = true;
+  }
+
   //when user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
     //get the artist from the input box then empty it
     query = $("#artist-input").val();
     $("#artist-input").val("");
+    var radius = Number($("#radius-input").val());
+    $("#radius-input").val("");
+    setCircle(radius);
 
     //get similar artists, search events then display events on map
     similiarArtists(query);
