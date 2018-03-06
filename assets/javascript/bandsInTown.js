@@ -107,7 +107,7 @@ function searchEventsInTown(artist, isTrue) {
            "<li>" + "Artist: "       + this.artist + "<li>" +
            "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
            "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
-           "<li>" + "Region: "      + response[this.index].venue.region  + "<li>" +
+           "<li>" + "Region: "       + response[this.index].venue.region  + "<li>" +
            "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
            "<li>" + "When: "         + eventDate                          + "<li>" +
            "<li>" + "Time: "         + eventTime                          + "<li>" +
