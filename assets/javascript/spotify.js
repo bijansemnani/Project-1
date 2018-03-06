@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $('.parallax').parallax();
+  var similarArtists;
   var queryUrl = "https://itunes.apple.com/search";
   var tasteDive = "https://tastedive.com/api/similar?k=301824-Project1-648PWR92&";
   var youTube;
