@@ -40,7 +40,7 @@ function searchEventsInTown(artist, isTrue) {
    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
    var icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-stars-lv.png';
    if(isTrue){
-     icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-stars-lv.png'
+     icon = 'https://maps.google.com/mapfiles/kml/paddle/purple-stars-lv.png'
    }
    $.ajax({
        url: queryURL,
