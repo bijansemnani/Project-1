@@ -79,6 +79,7 @@ $(document).ready(function () {
   //when user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
+    $("#similarArtistEvents").empty();
     count = 0;
     //get the artist from the input box then empty it
     query = $("#artist-input").val();
