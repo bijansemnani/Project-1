@@ -25,9 +25,6 @@ function search(artist) {
   url: queryURL,
   method: "GET"
   }).then(function(response) {
-      //---------------------------------this specific part needs work vvv------------------------------------------------
-      // Printing the entire object to console
-      console.log(response);
       // Constructing HTML containing the artist information
       var artistName = $("<h1>").text(artist);
       var artistURL = $("<a>").attr("href", response.url).append(artistName);
@@ -49,7 +46,6 @@ function searchEventsInTown(artist, isTrue) {
        url: queryURL,
        method: "GET"
    }).then(function(response) {
-       console.log(response);
        for (var i = 0; i < response.length; i++){
          var venueLatitudeString = (response[i].venue.latitude);
          var venueLongitudeString = (response[i].venue.longitude);
@@ -68,14 +64,16 @@ function searchEventsInTown(artist, isTrue) {
          var venueLat = Number(venueLatitudeString); //EVENT LATITUDE
          var venueLong = Number(venueLongitudeString); //EVENT LONGITUDE
 
+         //Set the eventLocation as a google maps LatLong location
          var eventLocation = new google.maps.LatLng(venueLat,venueLong)
 
          var eventTicket = (response[i].offers[0].url); //LINK TO PURCHASE TICKETS
          var eventTicketStatus = (response[i].offers[0].status); //EVENT TICKET AVAILABILITY
 
          //--------------------------------Event Marker Creation-------------------------------//
-         //Create a marker for each event on the map save the index and artist name for later use
+         //Check to see if the location is within the given radius
          if(bounds.contains(eventLocation) === true){
+           //Create a marker for each event on the map save the index and artist name for later use
            var eventMarker = new google.maps.Marker({
                position: {lat: venueLat, lng: venueLong},
                map: map,
@@ -110,7 +108,6 @@ function searchEventsInTown(artist, isTrue) {
              //On a click open the content window for the specified marker
              eventinfoWindow.open(map, this);
            });
-           console.log(eventMarker);
            //Push all event markers onto the markers array
            markers.push(eventMarker);
          }

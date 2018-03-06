@@ -1,5 +1,7 @@
-var map, infoWindow, service, request;
+var map, infoWindow;
 var userLat, userLong, userPos;
+var circle;
+var bounds;
 var markers = [];
 
 function initMap() {
@@ -108,19 +110,21 @@ function initMap() {
     //-----------------------------------------
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            //Get user position
             userLat = position.coords.latitude;
             userLong = position.coords.longitude;
+
+            //Create circle around user's location
             center = new google.maps.LatLng(userLat,userLong);
             circle = new google.maps.Circle({
               map: map,
               center: center,
               radius: 1000000
             });
+
+            //Get the bounds of the circle for later use
             bounds = circle.getBounds();
-            request = {
-                location: userPos,
-                radius: '10000'
-            };
+
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
