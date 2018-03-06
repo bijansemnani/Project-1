@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $('.parallax').parallax();
-  $('.carousel').carousel();
+  
   var queryUrl = "https://itunes.apple.com/search";
   var tasteDive = "https://tastedive.com/api/similar?k=301824-Project1-648PWR92&";
   var youTube;
@@ -24,7 +24,7 @@ $(document).ready(function () {
       });
   }
 
-  //get similar artists from the user picked aritst using tasteDive
+  //get similar artists from the user picked artist using tasteDive
   function similiarArtists(artist) {
     $.ajax({
           url: tasteDive,
@@ -41,7 +41,6 @@ $(document).ready(function () {
 
             //get similarArtists from the tasteDive api
             similarArtists = response.Similar.Results;
-            // similarArtistsPic = 
 
             //for each artist get their tour dates and locations
             for (var i = 0; i < similarArtists.length; i++) {
@@ -54,6 +53,8 @@ $(document).ready(function () {
             }
           }
     });
+    // Initialize carousel of dynamically created band pics (similar artists)
+    $('.carousel').carousel();
   }
 
   //when user searches for an artist start the search functions
