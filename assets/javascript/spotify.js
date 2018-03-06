@@ -5,6 +5,7 @@ $(document).ready(function () {
   var tasteDive = "https://tastedive.com/api/similar?k=301824-Project1-648PWR92&";
   var youTube;
   var iframe;
+  var radiusSet = false;
 
   function ajaxCall(query) {
     $.ajax({
@@ -54,6 +55,10 @@ $(document).ready(function () {
   }
 
   function setCircle(radius) {
+    if(radiusSet === true){
+      circle.setMap(null);
+      radiusSet = false;
+    }
     //Create circle around user's location
     center = new google.maps.LatLng(userLat,userLong);
     circle = new google.maps.Circle({
@@ -63,6 +68,7 @@ $(document).ready(function () {
     });
     //Get the bounds of the circle for later use
     bounds = circle.getBounds();
+    radiusSet = true;
   }
 
   //when user searches for an artist start the search functions
