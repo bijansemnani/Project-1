@@ -56,6 +56,12 @@ h3 {
     padding: 30px 10px;
 }
 
+.carousel .carousel-item {
+    display: flex;
+    top: 100px;
+    left: 100px;
+}
+
 /* .row .col.l12 {
     background: #E3E4E7;
     background: url("../images/purty_wood/purty_wood.png");

@@ -1,3 +1,17 @@
+// Querying the bandsintown artist info api to display pics of similar bands
+function searchArtistInfo (artist) {
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "?app_id=codingbootcamp";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var searchArtistPic = response.thumb_url;
+        console.log(searchArtistPic);
+        var carouselPic = $("<a class = 'carousel-item'><img src = '" + searchArtistPic + "'><a>");
+        $(".carousel").append(carouselPic);
+    });
+}
+
 function searchBandsInTown(artist) {
     //console.log(similarArtists);
     var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
