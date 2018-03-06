@@ -45,7 +45,7 @@ function search(artist) {
   method: "GET"
   }).then(function(response) {
       // Constructing HTML containing the artist information
-       var artistURL = $("<a>").attr("href", response.url).append(artistName);
+       var artistURL = $("<a>").attr("href", response.url).append(artist);
        var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
        var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist content
@@ -126,7 +126,6 @@ function searchEventsInTown(artist, isTrue) {
              //On a click open the content window for the specified marker
              eventinfoWindow.open(map, this);
            });
-           eventinfoWindow.open(map, this);
 
             markers.push(eventMarker);
          }
