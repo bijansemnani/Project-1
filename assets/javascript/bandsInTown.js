@@ -97,17 +97,20 @@ function searchEventsInTown(artist, isTrue) {
            var datetimeSplit = datetime.split("T");
            var eventDate = datetimeSplit[0]; //EVENT DATE
            var eventTime = datetimeSplit[1];
-           var markerWindow = "<p>"
-           + " " + "Artist: " + this.artist + "<br>"
-           + " " + "Venue: " + response[this.index].venue.name + "<br>"
-           + " - " + "City: " + response[this.index].venue.city + "<br>"
-           + " - " + "State/Region: "  + response[this.index].venue.region + "<br>"
-           + " - " + "Country: "  + response[this.index].venue.country + "<br>"
-           + " - " + "When: " + eventDate + "<br>"
-           + " - " + "Time: " + eventTime + "<br>"
-           + " - " + "Tickets: " + response[this.index].offers[0].url + "<br>"
-           + " - " + "Purchase tickets: " + response[this.index].offers[0].url
-           + "</p>";
+
+           var markerWindow ="<ul>"+
+           "<li>" + "Artist: "       + this.artist + "<li>" +
+           "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
+           "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
+           "<li>" + "State/Region: " + response[this.index].venue.region  + "<li>" +
+           "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
+           "<li>" + "When: "         + eventDate                          + "<li>" +
+           "<li>" + "Time: "         + eventTime                          + "<li>" +
+           "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
+                                     + "</ul>";
+
+
+
            console.log(markerWindow);
            eventinfoWindow = new google.maps.InfoWindow({
              content: markerWindow
