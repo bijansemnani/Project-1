@@ -7,25 +7,7 @@ $(document).ready(function () {
   var youTube;
   var iframe;
   var radiusSet = false;
-
-
-  function ajaxCall(query) {
-    $.ajax({
-          url: queryUrl,
-          data: {
-              media: "music",
-              term: query,
-              limit: 20
-          },
-          dataType: 'JSONP',
-          success: function (response) {
-              console.log(response);
-              var artist = response.results[0].artistName;
-              searchBandsInTown(artist);
-              similiarArtists(artist);
-          }
-      });
-  }
+  var prevThis;
 
   //get similar artists from the user picked artist using tasteDive
   function similiarArtists(artist) {
@@ -49,13 +31,9 @@ $(document).ready(function () {
             for (var i = 0; i < similarArtists.length; i++) {
               searchEventsInTown(similarArtists[i].Name, true);
               searchArtistInfo(similarArtists[i].Name, i);
-              $("#artists").append("<p class='"+i+"'>")
-              $("#artists").append("<button id='"+i
-              +"' class='artists'>" + similarArtists[i].Name + "</button>");
             }
           }
     });
-    // Initialize carousel of dynamically created band pics (similar artists)
   }
 
   //Create the radius circle based on user's inputted radius
@@ -76,54 +54,54 @@ $(document).ready(function () {
     radiusSet = true;
   }
 
-  //when user searches for an artist start the search functions
+  //When user searches for an artist start the search functions
   $("#add-artist").on("click", function (event) {
     event.preventDefault();
+    $("#similarArtistEvents").empty();
     count = 0;
-    //get the artist from the input box then empty it
+    //Get the artist from the input box then empty it
     query = $("#artist-input").val();
     $("#artist-input").val("");
     var radius = Number($("#radius-input").val());
     $("#radius-input").val("");
     setCircle(radius);
 
-    //get similar artists, search events then display events on map
+    //Get similar artists, search events then display events on map
     similiarArtists(query);
     search(query);
     searchEventsInTown(query, false);
   });
 
-  //when user clicks on artist button play youtube video
-  $(document).on("click", "a.carousel-item", function () {
-    //get the index for the similarArtist array from the id attr
+  //When user clicks on play button play youtube video
+  $(document).on("click", "button.toggle-play", function () {
     var i = $(this).attr("id");
+    var toggle = $(this).attr("data-toggle");
 
-    //create play and pause buttons
-    $("p."+i).append("<button class='toggle' id='play'>Play</button>");
-    $("p."+i).append("<button class='toggle' id='pause'>Pause</button>");
+    //Check to see if user switched to a new video if so make sure toggle is off
+    if(prevThis !== i){
+      $(this).attr("data-toggle", "off");
+    }
 
-    //create the iframe for the youtube video
-    $("#iframes").html("<iframe id='video' style=' position: absolute; \
-    z-index: -1; visibility:hidden;' src='"
-    +similarArtists[i].yUrl
-    +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
+    //If the toggle is off that means youtube video is not loaded so load it set toggle to on
+    if(toggle === "off"){
+      $("#iframes").html("<iframe id='video' style=' position: absolute; \
+      z-index: -1; visibility:hidden;' src='"
+      +similarArtists[i].yUrl
+      +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
+      $(this).attr("data-toggle","on");
+      prevThis = i;
 
-    //get the iframe info for toggling purposes
+      //Else play the video since the video is already loaded
+    } else{
+      iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
     var vid = document.getElementById("video");
     iframe = vid.contentWindow;
   });
 
-  //play/pause button functionality for the youtube videos
-  $("#artists").on("click", "button.toggle", function () {
-    //get the id of the id from the play or pause buttons
-    var attr = $(this).attr("id");
-
-    //toggle the video depending on which button was pressed
-    if(attr === "play"){
-      iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    }
-    else{
-      iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    }
+  //When user clicks the pause button pause the video
+  $(document).on("click", "button.toggle-pause", function () {
+    iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
   });
+
 });
