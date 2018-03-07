@@ -96,7 +96,11 @@ function similarArtistDiv(response,artist) {
   var ticketInfoA = $("<a>").text("BUY TICKETS");
   ticketInfoA.attr("target", "_blank");
   ticketInfoA.attr("href", response.offers[0].url);
-  ticketInfoDiv.append(ticketInfoA);
+
+  var artistInfo = $("<a>").text("MORE ARTIST INFO");
+  artistInfo.attr("target", "_blank");
+  artistInfo.attr("href", response.offers[0].url);
+  ticketInfoDiv.append(ticketInfoA, artistInfo);
 
   $("#similarArtistEvents").append(eventInfoDiv);
   eventInfoDiv.append(eventInfoDiv2);
