@@ -6,8 +6,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-
+    <!-- Link to fonts.google -->
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Bungee+Outline|Bungee+Shade|Fredericka+the+Great|Monofett|Permanent+Marker|Rock+Salt|Shadows+Into+Light+Two|Nothing+You+Could+Do|Walter+Turncoat|Sedgwick+Ave+Display" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 
@@ -40,8 +40,9 @@
         <div class="col l4 s12 hoverable">
           <h3 class="header">Search an Artist</h3>
           <form id="artist-form">
-            <label for="artist-input">Search Band Name and set Search Radius</label>
+            <label for="artist-input">Search Band Name</label>
             <input type="text" id="artist-input"><br>
+            <label for="artist-input">Set Search Radius</label>
             <input type="text" id="radius-input"><br>
             <!-- Button triggers new artist to be searched -->
             <input id="add-artist" type="submit" value="Search">
@@ -60,7 +61,6 @@
       </div>
       <!-- Similar Artists dynamic event info -->
       <div class="row" id="similarArtistEvents">
-        <!-- <div class = "card-action">TIX LINK INFO</div> -->
       </div>
     </div>
 
