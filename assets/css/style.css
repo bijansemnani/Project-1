@@ -96,14 +96,10 @@ h3 {
     color: white;
 }
 
-label {
+label, button {
     color: white;
 }
 
 #artistCar, button {
     background: black;
-}
-
-button {
-    color: white;
 }
