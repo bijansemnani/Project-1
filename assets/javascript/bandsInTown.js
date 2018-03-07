@@ -35,7 +35,7 @@ function search(artist) {
        var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist # of upcoming events
       $("#artist-div").empty();
-      $("#artist-div").append("<br>", upcomingEvents);
+      $("#artist-div").append("<br>", artistURL, upcomingEvents);
   });
 }
 

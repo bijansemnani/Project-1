@@ -72,6 +72,14 @@ label {
     background-size: 100%;
 }
 
+.carousel .carousel-item {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: -10px;
+    left: 0;
+}
+
 #similar-artist {
     background: url("../images/zzz.jpg");
     margin: 0;
