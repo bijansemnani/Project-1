@@ -30,7 +30,7 @@ h3 {
 }
 
 .row .col.s12 {
-    background: url("../images/slanted.png");
+    background: url("../images/slanted2.png");
     background-repeat: repeat;
     background-size: cover;
 }
@@ -89,7 +89,7 @@ button {
 }
 
 #artistCar, #similar-artist {
-    background: url("../images/slanted.png");
+    background: url("../images/slanted2.png");
     background-repeat: repeat;
     background-size: cover;
 }
