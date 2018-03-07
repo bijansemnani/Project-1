@@ -270,8 +270,6 @@ function initMap() {
     });
     //-----------------------------------------
     clearMarkers();
-    //-----------------------------------------
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             //Get user position
