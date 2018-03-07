@@ -17,26 +17,6 @@ function searchArtistInfo (artist, index) {
     });
 }
 
-function searchBandsInTown(artist) {
-    //console.log(similarArtists);
-    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response) {
-
-        var results = response;
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].venue.name);
-            console.log(results[i].venue.city);
-            console.log(results[i].venue.region);
-            console.log(results[i].venue.country);
-            console.log(results[i].offers[0].url);
-            console.log("/////////////////////////////");
-        }
-    });
-}
-
 function search(artist) {
   // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
   var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
@@ -52,6 +32,34 @@ function search(artist) {
       $("#artist-div").empty();
       $("#artist-div").append(artistURL, upcomingEvents);
   });
+}
+
+function listener(response, marker) {
+  //Vars for the date and event times
+  var datetime = (response[marker.index].datetime);
+  var datetimeSplit = datetime.split("T");
+  var eventDate = datetimeSplit[0]; //EVENT DATE
+  var eventTime = datetimeSplit[1];
+
+  //Content to be displayed in the window when marker is clicked
+  var markerWindow ="<ul>"+
+  "<li>" + "Artist: "       + marker.artist + "<li>" +
+  "<li>" + "Venue: "        + response[marker.index].venue.name    + "<li>" +
+  "<li>" + "City: "         + response[marker.index].venue.city    + "<li>" +
+  "<li>" + "Region: "       + response[marker.index].venue.region  + "<li>" +
+  "<li>" + "Country: "      + response[marker.index].venue.country + "<li>" +
+  "<li>" + "When: "         + eventDate                            + "<li>" +
+  "<li>" + "Time: "         + eventTime                            + "<li>" +
+  "<li>" + "Tickets: "      +"<a target='_blank' href='"
+                            + response[marker.index].offers[0].url+"'>Get Tickets</a><li>"
+                            + "</ul>";
+
+ //Create a new content window and set it to be the content saved for that specific marker
+  eventinfoWindow = new google.maps.InfoWindow({
+    content: markerWindow
+  });
+  //On a click open the content window for the specified marker
+  eventinfoWindow.open(map, marker);
 }
 
 function searchEventsInTown(artist, isTrue) {
@@ -101,30 +109,7 @@ function searchEventsInTown(artist, isTrue) {
 
            //Add a click listener to each marker
            }).addListener('click',function () {
-             //Vars for the date and event times
-             var datetime = (response[this.index].datetime);
-             var datetimeSplit = datetime.split("T");
-             var eventDate = datetimeSplit[0]; //EVENT DATE
-             var eventTime = datetimeSplit[1];
-
-           //Content to be displayed in the window when marker is clicked
-           var markerWindow ="<ul>"+
-           "<li>" + "Artist: "       + this.artist + "<li>" +
-           "<li>" + "Venue: "        + response[this.index].venue.name    + "<li>" +
-           "<li>" + "City: "         + response[this.index].venue.city    + "<li>" +
-           "<li>" + "Region: "      + response[this.index].venue.region  + "<li>" +
-           "<li>" + "Country: "      + response[this.index].venue.country + "<li>" +
-           "<li>" + "When: "         + eventDate                          + "<li>" +
-           "<li>" + "Time: "         + eventTime                          + "<li>" +
-           "<li>" + "Tickets: "      +"<a target='_blank' href='"+ response[this.index].offers[0].url+"'>Get Tickets</a><li>"
-                                     + "</ul>";
-
-            //Create a new content window and set it to be the content saved for that specific marker
-             eventinfoWindow = new google.maps.InfoWindow({
-               content: markerWindow
-             });
-             //On a click open the content window for the specified marker
-             eventinfoWindow.open(map, this);
+             listener(response, this);
            });
 
             markers.push(eventMarker);
@@ -151,34 +136,10 @@ function searchEventsInTown(artist, isTrue) {
          ticketInfoA.attr("target", "_blank");
          ticketInfoA.attr("href", eventTicket);
          ticketInfoDiv.append(ticketInfoA);
-
-
-        //  $("<p>").text("#" + (i + 1) + ":"
-        //   + "<span class = 'card-title'>INSERT BAND NAME</span>"
-        //   + "<p>Venue: " + venueName + "</p>"
-        //   + "<p>Location: " + venueCity + ", " + venueState + ", " + venueCountry + "</p>"
-        //   + "<p>Date $ Time: " + eventDate + ", " + eventTime + "</p>"
-
-        // var ticketInfo = $("div");
-        // ticketInfo.addClass("card-action");
-        // ticketInfo.attr("<a> href = " + eventTicket + "</a>");
-
-
-
-        //  + "<p>" + "Venue: " + venueName
-        //  + "<p>" + "City: " + venueCity
-        //  + " - " + "State/Region: "  + venueState
-        // //  + " - " + "Country: "  + venueCountry
-        //  + "<p>" + "When: " + eventDate
-        //  + " - " + "Time: " + eventTime
-        //  + "<p>" + "Tickets: " + eventTicketStatus
-        //  + "<p>" + "Purchase tickets: " + eventTicket
-        //  );
-        // $("#upcoming-events-div").append(eventInfo);
-        $("#similarArtistEvents").append(eventInfoDiv);
-        eventInfoDiv.append(eventInfoDiv2);
-        eventInfoDiv2.append(eventInfoDiv3, ticketInfoDiv);
-        eventInfoDiv3.append(eventInfoSpan);
+         $("#similarArtistEvents").append(eventInfoDiv);
+         eventInfoDiv.append(eventInfoDiv2);
+         eventInfoDiv2.append(eventInfoDiv3, ticketInfoDiv);
+         eventInfoDiv3.append(eventInfoSpan);
 
 
 
