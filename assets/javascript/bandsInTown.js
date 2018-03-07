@@ -41,9 +41,9 @@ function search(artist) {
        var artistURL = $("<div><a>").attr("href", response.url).append(artist);
        var upcomingEvents = $("<div><h2>").text(response.length + " upcoming events");
        var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
-      // Empty the contents of the artist-div, append the new artist content
+      // Empty the contents of the artist-div, append the new artist # of upcoming events
       $("#artist-div").empty();
-      $("#artist-div").append(artistURL, upcomingEvents);
+      $("#artist-div").append("<br>", artistURL, upcomingEvents);
   });
 }
 
@@ -83,12 +83,10 @@ function similarArtistDiv(response,artist) {
 
   var eventInfoDiv = $("<div>");
   eventInfoDiv.addClass("col s3 m6");
-
   var eventInfoDiv2 = $("<div>");
-  eventInfoDiv2.addClass("card blue-grey darken-1");
-
+  eventInfoDiv2.addClass("card teal lighten-2"); 
   var eventInfoDiv3 = $("<div>");
-  eventInfoDiv3.addClass("card-content white-text");
+  eventInfoDiv3.addClass("card-content black-text");
 
   var eventInfoSpan =
   $("<span class = 'card-title'>" + artist + "</span>"
@@ -100,12 +98,17 @@ function similarArtistDiv(response,artist) {
   + "<p>Time: "     + eventTime + "</p>");
 
   var ticketInfoDiv = $("<div>");
-  ticketInfoDiv.addClass("card-action");
+  ticketInfoDiv.addClass("card-action teal lighten-1");
+
 
   var ticketInfoA = $("<a>").text("BUY TICKETS");
   ticketInfoA.attr("target", "_blank");
   ticketInfoA.attr("href", response.offers[0].url);
-  ticketInfoDiv.append(ticketInfoA);
+
+  var artistInfo = $("<a>").text("MORE ARTIST INFO");
+  artistInfo.attr("target", "_blank");
+  artistInfo.attr("href", response.offers[0].url);
+  ticketInfoDiv.append(ticketInfoA, artistInfo);
 
   $("#similarArtistEvents").append(eventInfoDiv);
   eventInfoDiv.append(eventInfoDiv2);

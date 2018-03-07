@@ -1,3 +1,7 @@
+body {
+    background: black;
+    font-family: "Walter Turncoat";
+}
 #map {
     height: 400px;
     width: 100%;
@@ -14,19 +18,43 @@ nav .nav-wrapper {
 nav .brand-logo {
     margin-left: 40px;
     color: white;
+    font-family: "bungee shade";
     margin-top: 10px;
 }
 
 h3 {
     color: white;
+    font-family: "bungee shade";
+    text-shadow: -4px 4px black;
 }
 
 .nav-wrapper .input-field input {
     margin-right: 40px;
 }
 
+label {
+    font-size: large;
+    text-shadow: -2px 2px black;
+}
+
+#artist-input {
+    font-size: 28px;
+    color: black;
+    background-color: rgba(245, 245, 245, .65);
+}
+
+#radius-input {
+    font-size: 28px;
+    color: black;
+    background-color: rgba(245, 245, 245, .65);
+}
+
 .section.white {
     padding: 0;
+}
+
+.row .col.l8 {
+    height: 575px;
 }
 
 .row .col.s12 {
@@ -45,6 +73,17 @@ h3 {
 
 #a {
     margin: 0;
+    background: url("../images/brickwall/angled_brick_wall.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.carousel .carousel-item {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: -10px;
+    left: 0;
 }
 
 #similar-artist {
@@ -59,7 +98,7 @@ h3 {
 }
 
 .row .col.l4 {
-    height: 484px;
+    height: 575px;
 }
 
 .parallax-container .parallax img {
