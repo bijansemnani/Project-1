@@ -25,18 +25,21 @@ h3 {
     margin-right: 40px;
 }
 
+/* .row {
+    background: url("../images/brickwall/angled_brick_wall.jpg");
+    background-repeat: repeat;
+    background-size: cover;
+} */
+
 .section.white {
     padding: 0;
-
+    background: url("../images/brickwall/angled_brick_wall.jpg");
+    background-repeat: repeat;
+    background-size: cover;
 }
 
 .row .col.s12 {
-    /* background: #E3E4E7; */
-    background: url("../images/zzz.jpg");
-    /* background: url("../images/purty_wood/purty_wood.png");
-    opacity: .8; */
-    /* background: url("../images/skelatal_weave/skelatal_weave.png"); */
-    /* background: url("../images/brickwall/brickwall.png"); */
+    /* background: url("../images/brickwall/angled_brick_wall_reverse.jpg"); */
 }
 
 .active {
@@ -52,9 +55,9 @@ h3 {
 }
 
 #similar-artist {
-    background: url("../images/zzz.jpg");
+    /* background: url("../images/zzz.jpg");
     margin: 0;
-    padding: 30px 10px;
+    padding: 30px 10px;*/
 }
 
 /* .carousel .carousel-item {
