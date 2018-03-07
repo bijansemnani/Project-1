@@ -34,7 +34,6 @@ $(document).ready(function () {
             }
           }
     });
-    // Initialize carousel of dynamically created band pics (similar artists)
   }
 
   //Create the radius circle based on user's inputted radius
