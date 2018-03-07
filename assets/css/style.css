@@ -53,7 +53,7 @@ label {
     padding: 0;
     background: url("../images/brickwall/angled_brick_wall.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
 }
 
 .row .col.l8 {
