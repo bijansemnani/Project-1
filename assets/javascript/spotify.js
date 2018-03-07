@@ -24,7 +24,8 @@ $(document).ready(function () {
             //empty events div and simlar artists' buttons
             $("#upcoming-events-div").empty();
             $("#artists").empty();
-
+            $('.carousel').empty();
+            $('.carousel').removeClass("initialized");
             //get similarArtists from the tasteDive api
             similarArtists = response.Similar.Results;
             //for each artist get their tour dates and locations

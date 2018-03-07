@@ -57,6 +57,12 @@ label {
     height: 575px;
 }
 
+.row .col.s12 {
+    background: url("../images/slanted.png");
+    background-repeat: repeat;
+    background-size: cover;
+}
+
 .active {
     color: white;
 }
@@ -81,7 +87,6 @@ label {
 }
 
 #similar-artist {
-    background: url("../images/zzz.jpg");
     margin: 0;
     padding: 30px 10px;
 }
@@ -114,6 +119,33 @@ label {
     color: white;
 }
 
-label {
+label, button {
     color: white;
+}
+
+button {
+    background: black;
+}
+
+#artistCar, #similar-artist {
+    background: url("../images/slanted.png");
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+input {
+    background:rgb(3, 3, 3);
+}
+
+#artist-div {
+    background: transparent;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+body {
+    background: url("../images/slanted.png");
+    background-repeat: repeat;
+    background-size: cover;
 }

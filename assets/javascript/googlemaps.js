@@ -262,6 +262,7 @@ function initMap() {
             ]
         }]
     });
+    clearMarkers();
     //-----------------------------------------
     var contentString =
     '<div id="content">We found you!</div>';
