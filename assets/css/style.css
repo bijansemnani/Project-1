@@ -1,5 +1,5 @@
 body {
-    background: black;
+    background-color: black;
     font-family: "Walter Turncoat";
 }
 #map {
@@ -49,12 +49,12 @@ label {
     background-color: rgba(245, 245, 245, .65);
 }
 
-.section.white {
+/* .section.white {
     padding: 0;
     background: url("../images/brickwall/angled_brick_wall.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
-}
+} */
 
 .row .col.l8 {
     height: 575px;
@@ -142,4 +142,29 @@ body {
     background: url("../images/slanted.png");
     background-repeat: repeat;
     background-size: cover;
+}
+
+#a{
+  background: url("../images/brickwall/angled_brick_wall.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#similarArtistEvents{
+  background: url("../images/brickwall/angled_brick_wall.jpg");
+  background-repeat: repeat;
+  background-size: 100%;
+}
+
+#similar-artist-div{
+  background: url("../images/brickwall/angled_brick_wall.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.row{
+  margin-bottom: 0 !important;
+}
+.section{
+  padding-top: 0 !important;
 }
