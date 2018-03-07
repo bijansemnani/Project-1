@@ -111,6 +111,7 @@ function searchEventsInTown(artist, isTrue) {
        method: "GET"
    }).then(function(response) {
        for (var i = 0; i < response.length; i++){
+         //Get the latlng to set markers later
          var venueLatitudeString = (response[i].venue.latitude);
          var venueLongitudeString = (response[i].venue.longitude);
          var venueLat = Number(venueLatitudeString);
@@ -132,6 +133,7 @@ function searchEventsInTown(artist, isTrue) {
            });
             markers.push(eventMarker);
          }
+         //Print all shows upcoming for the artist and similar artists below the map
          similarArtistDiv(response[i],artist);
        }
    });
