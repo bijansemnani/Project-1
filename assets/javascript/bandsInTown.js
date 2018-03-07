@@ -30,8 +30,8 @@ function search(artist) {
   method: "GET"
   }).then(function(response) {
       // Constructing HTML containing the artist information
-       var artistURL = $("<a>").attr("href", response.url).append(artist);
-       var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
+       var artistURL = $("<div><a>").attr("href", response.url).append(artist);
+       var upcomingEvents = $("<div><h2>").text(response.length + " upcoming events");
        var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist content
       $("#artist-div").empty();
