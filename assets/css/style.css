@@ -9,6 +9,7 @@ nav .nav-wrapper {
 
 .nav-wrapper {
     background: rgb(3, 3, 3);
+    font-family: 'Bungee Shade';
 }
 
 nav .brand-logo {
@@ -18,6 +19,7 @@ nav .brand-logo {
 }
 
 h3 {
+    font-family: 'Bungee Shade';
     color: white;
 }
 
