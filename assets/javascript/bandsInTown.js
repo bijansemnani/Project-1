@@ -75,7 +75,6 @@ function similarArtistDiv(response,artist) {
 
   var eventInfoDiv = $("<div>");
   eventInfoDiv.addClass("col s3 m6");
-
   var eventInfoDiv2 = $("<div>");
   eventInfoDiv2.addClass("card teal lighten-2"); 
   var eventInfoDiv3 = $("<div>");
