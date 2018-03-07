@@ -7,6 +7,7 @@ $(document).ready(function () {
   var youTube;
   var iframe;
   var radiusSet = false;
+  var prevThis;
 
 
   function ajaxCall(query) {
@@ -91,30 +92,34 @@ $(document).ready(function () {
     searchEventsInTown(query, false);
   });
 
-  //when user clicks on artist button play youtube video
+  //when user clicks on play button play youtube video
   $(document).on("click", "button.toggle-play", function () {
-    //get the index for the similarArtist array from the id attr
     var i = $(this).attr("id");
+    console.log(i);
+    console.log(prevThis);
+    console.log(prevThis !== i);
+    if(prevThis !== i){
+      $(this).attr("data-toggle", "off");
+    }
     var attr = $(this).attr("class");
     var toggle = $(this).attr("data-toggle");
-    //create play and pause buttons
+    //if the youtube video
     if(toggle === "off"){
       $("#iframes").html("<iframe id='video' style=' position: absolute; \
       z-index: -1; visibility:hidden;' src='"
       +similarArtists[i].yUrl
       +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
       $(this).attr("data-toggle","on");
+      prevThis = i;
     } else{
       iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
     }
-    
     var vid = document.getElementById("video");
     iframe = vid.contentWindow;
   });
 
   $(document).on("click", "button.toggle-pause", function () {
     iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-
   });
 
 });
