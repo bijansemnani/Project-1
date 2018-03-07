@@ -43,6 +43,7 @@ $(document).ready(function () {
       circle.setMap(null);
       radiusSet = false;
     }
+    radius = radius*1609.34;
     //Create circle around user's location
     center = new google.maps.LatLng(userLat,userLong);
     circle = new google.maps.Circle({
