@@ -6,18 +6,26 @@ function searchArtistInfo (artist, index) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
+      console.log(count);
         var searchArtistPic = response.thumb_url;
         var carousel = $("<a id='"+index+"' class='carousel-item' href='#one!'><img src ='"
         + searchArtistPic + "'></a>");
-        var p = $("<p class='"+index+"'>");
+        var name = $("<p class='names center-align'>");
+        name.text(artist);
+        carousel.append(name);
+        var p = $("<p class='"+index+" center-align'>");
         p.append("<button data-toggle='off' class='toggle-play' id='"+index+"'>Play</button>");
         p.append("<button class='toggle-pause' id='"+index+"'>Pause</button>");
         carousel.append(p);
         $(".carousel").append(carousel);
         count++;
         if(count === 10){
-          $('.carousel-item').first().addClass('active');
-          $('.carousel').carousel();
+          console.log("here");
+          setTimeout(function () {
+            $('.carousel-item').first().addClass('active');
+            $('.carousel').carousel();
+          }, 1000);
+
         }
     });
 }
@@ -30,8 +38,8 @@ function search(artist) {
   method: "GET"
   }).then(function(response) {
       // Constructing HTML containing the artist information
-       var artistURL = $("<a>").attr("href", response.url).append(artist);
-       var upcomingEvents = $("<h2>").text(response.length + " upcoming events");
+       var artistURL = $("<div><a>").attr("href", response.url).append(artist);
+       var upcomingEvents = $("<div><h2>").text(response.length + " upcoming events");
        var goToArtist = $("<a>").attr("href", response.url).text("See Tour Dates");
       // Empty the contents of the artist-div, append the new artist content
       $("#artist-div").empty();
