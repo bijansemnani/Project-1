@@ -53,6 +53,10 @@ label {
     padding: 0;
 }
 
+.row .col.l8 {
+    height: 575px;
+}
+
 .active {
     color: white;
 }
@@ -81,7 +85,7 @@ label {
 }
 
 .row .col.l4 {
-    height: 484px;
+    height: 575px;
 }
 
 .parallax-container .parallax img {
