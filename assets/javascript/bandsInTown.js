@@ -6,6 +6,7 @@ function searchArtistInfo (artist, index) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
+      console.log(count);
         var searchArtistPic = response.thumb_url;
         var carousel = $("<a id='"+index+"' class='carousel-item' href='#one!'><img src ='"
         + searchArtistPic + "'></a>");
@@ -16,8 +17,12 @@ function searchArtistInfo (artist, index) {
         $(".carousel").append(carousel);
         count++;
         if(count === 10){
-          $('.carousel-item').first().addClass('active');
-          $('.carousel').carousel();
+          console.log("here");
+          setTimeout(function () {
+            $('.carousel-item').first().addClass('active');
+            $('.carousel').carousel();
+          }, 1000);
+
         }
     });
 }
