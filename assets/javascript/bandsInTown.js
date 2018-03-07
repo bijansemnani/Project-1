@@ -10,7 +10,10 @@ function searchArtistInfo (artist, index) {
         var searchArtistPic = response.thumb_url;
         var carousel = $("<a id='"+index+"' class='carousel-item' href='#one!'><img src ='"
         + searchArtistPic + "'></a>");
-        var p = $("<p class='"+index+"'>");
+        var name = $("<p class='names center-align'>");
+        name.text(artist);
+        carousel.append(name);
+        var p = $("<p class='"+index+" center-align'>");
         p.append("<button data-toggle='off' class='toggle-play' id='"+index+"'>Play</button>");
         p.append("<button class='toggle-pause' id='"+index+"'>Pause</button>");
         carousel.append(p);
