@@ -49,9 +49,6 @@ $(document).ready(function () {
             for (var i = 0; i < similarArtists.length; i++) {
               searchEventsInTown(similarArtists[i].Name, true);
               searchArtistInfo(similarArtists[i].Name, i);
-              $("#artists").append("<p class='"+i+"'>")
-              $("#artists").append("<button id='"+i
-              +"' class='artists'>" + similarArtists[i].Name + "</button>");
             }
           }
     });
@@ -95,36 +92,29 @@ $(document).ready(function () {
   });
 
   //when user clicks on artist button play youtube video
-  $(document).on("click", "a.carousel-item", function () {
+  $(document).on("click", "button.toggle-play", function () {
     //get the index for the similarArtist array from the id attr
     var i = $(this).attr("id");
-
+    var attr = $(this).attr("class");
+    var toggle = $(this).attr("data-toggle");
     //create play and pause buttons
-    $("p."+i).append("<button class='toggle' id='play'>Play</button>");
-    $("p."+i).append("<button class='toggle' id='pause'>Pause</button>");
-
-    //create the iframe for the youtube video
-    $("#iframes").html("<iframe id='video' style=' position: absolute; \
-    z-index: -1; visibility:hidden;' src='"
-    +similarArtists[i].yUrl
-    +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
-
-    //get the iframe info for toggling purposes
+    if(toggle === "off"){
+      $("#iframes").html("<iframe id='video' style=' position: absolute; \
+      z-index: -1; visibility:hidden;' src='"
+      +similarArtists[i].yUrl
+      +"?rel=0&autoplay=1&enablejsapi=1'></iframe");
+      $(this).attr("data-toggle","on");
+    } else{
+      iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
+    
     var vid = document.getElementById("video");
     iframe = vid.contentWindow;
   });
 
-  //play/pause button functionality for the youtube videos
-  $("#artists").on("click", "button.toggle", function () {
-    //get the id of the id from the play or pause buttons
-    var attr = $(this).attr("id");
+  $(document).on("click", "button.toggle-pause", function () {
+    iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
 
-    //toggle the video depending on which button was pressed
-    if(attr === "play"){
-      iframe.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    }
-    else{
-      iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    }
   });
+
 });
